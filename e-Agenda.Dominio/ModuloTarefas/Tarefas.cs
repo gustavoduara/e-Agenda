@@ -1,36 +1,72 @@
-﻿using e_Agenda.Dominio.Compartilhado;
+﻿using e_Agenda.Dominio.ModuloTarefas;
+using e_Agenda.Dominio.Compartilhado;
 
-namespace ControleDeBar.Dominio.ModuloMesa;
+namespace e_Agenda.Dominio.ModuloTarefas;
 
 public class Tarefas : EntidadeBase<Tarefas>
 {
-    public int Numero { get; set; }
-    public int Capacidade { get; set; }
-    public bool EstaOcupada { get; set; }
+    public enum PrioridadeTarefa
+    {
+        Baixa,
+        Normal,
+        Alta
+    }
 
-    public Tarefas() { }
+    public string Titulo { get; set; }
+    public PrioridadeTarefa Prioridade { get; set; }
+    public DateTime DataCriacao { get; set; }
+    public DateTime? DataConclusao { get; set; }
+    public bool Concluida => PercentualConcluido == 100;
+    public int PercentualConcluido { get; private set; }
 
-    public Tarefas(int numero, int quantidadeDeAssentos) : this()
+    public List<ItemTarefas> Itens { get; set; }
+
+    public Tarefas()
+    {
+        Itens = new List<ItemTarefas>();
+        DataCriacao = DateTime.Now;
+    }
+
+    public Tarefas(string titulo, PrioridadeTarefa prioridade) : this()
     {
         Id = Guid.NewGuid();
-        Numero = numero;
-        Capacidade = quantidadeDeAssentos;
-        EstaOcupada = false;
+        Titulo = titulo;
+        Prioridade = prioridade;
     }
 
-    public void Ocupar()
+    public void AdicionarItem(ItemTarefas item)
     {
-        EstaOcupada = true;
+        Itens.Add(item);
+        AtualizarPercentual();
     }
 
-    public void Desocupar()
+    public void RemoverItem(ItemTarefas item)
     {
-        EstaOcupada = false;
+        Itens.Remove(item);
+        AtualizarPercentual();
+    }
+
+    public void AtualizarPercentual()
+    {
+        if (Itens.Count == 0)
+        {
+            PercentualConcluido = 0;
+            return;
+        }
+
+        var totalConcluidos = Itens.Count(i => i.Concluido);
+        PercentualConcluido = (int)((double)totalConcluidos / Itens.Count * 100);
+
+        if (PercentualConcluido == 100)
+            DataConclusao = DateTime.Now;
+        else
+            DataConclusao = null;
     }
 
     public override void AtualizarRegistro(Tarefas registroEditado)
     {
-        Numero = registroEditado.Numero;
-        Capacidade = registroEditado.Capacidade;
+        Titulo = registroEditado.Titulo;
+        Prioridade = registroEditado.Prioridade;
+        AtualizarPercentual();
     }
 }
