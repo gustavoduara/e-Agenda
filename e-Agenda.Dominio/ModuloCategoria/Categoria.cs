@@ -1,98 +1,91 @@
-using ControleDeBar.Dominio.Compartilhado;
-using ControleDeBar.Dominio.ModuloGarcom;
-using ControleDeBar.Dominio.ModuloMesa;
-using ControleDeBar.Dominio.ModuloProduto;
+// using e .Dominio.Compartilhado;
 
-namespace ControleDeBar.Dominio.ModuloConta;
+// namespace e_Agenda.Dominio.ModuloCategoria;
 
-public class Conta : EntidadeBase<Conta>
-{
-    public string Titular { get; set; }
-    public Tarefas Mesa { get; set; }
-    public Garcom Garcom { get; set; }
-    public DateTime Abertura { get; set; }
-    public DateTime Fechamento { get; set; }
-    public bool EstaAberta { get; set; }
-    public List<Pedido> Pedidos { get; set; }
+// public class Categoria : EntidadeBase<Categoria>
+// {
+//     public string Nome { get; set; }
+//     public string Descricao { get; set; }
+//     public bool EstaAtiva { get; set; }
 
-    public Conta()
-    {
-        Pedidos = new List<Pedido>();
-    }
+//     public Conta()
+//     {
+//         Pedidos = new List<Pedido>();
+//     }
 
-    public Conta(string titular, Tarefas mesa, Garcom garcom) : this()
-    {
-        Id = Guid.NewGuid();
-        Titular = titular;
-        Mesa = mesa;
-        Garcom = garcom;
+//     public Conta(string titular, Tarefas mesa, Garcom garcom) : this()
+//     {
+//         Id = Guid.NewGuid();
+//         Titular = titular;
+//         Mesa = mesa;
+//         Garcom = garcom;
 
-        Abrir();
-    }
+//         Abrir();
+//     }
 
-    public void Abrir()
-    {
-        EstaAberta = true;
-        Abertura = DateTime.Now;
+//     public void Abrir()
+//     {
+//         EstaAberta = true;
+//         Abertura = DateTime.Now;
 
-        Mesa.Ocupar();
-    }
+//         Mesa.Ocupar();
+//     }
 
-    public void Fechar()
-    {
-        EstaAberta = false;
-        Fechamento = DateTime.Now;
+//     public void Fechar()
+//     {
+//         EstaAberta = false;
+//         Fechamento = DateTime.Now;
 
-        Mesa.Desocupar();
-    }
+//         Mesa.Desocupar();
+//     }
 
-    public Pedido RegistrarPedido(Produto produto, int quantidadeEscolhida)
-    {
-        Pedido novoPedido = new Pedido(produto, quantidadeEscolhida);
+//     public Pedido RegistrarPedido(Produto produto, int quantidadeEscolhida)
+//     {
+//         Pedido novoPedido = new Pedido(produto, quantidadeEscolhida);
 
-        Pedidos.Add(novoPedido);
+//         Pedidos.Add(novoPedido);
 
-        return novoPedido;
-    }
+//         return novoPedido;
+//     }
 
-    public Pedido RemoverPedido(Pedido pedido)
-    {
-        Pedidos.Remove(pedido);
+//     public Pedido RemoverPedido(Pedido pedido)
+//     {
+//         Pedidos.Remove(pedido);
 
-        return pedido;
-    }
+//         return pedido;
+//     }
 
-    public Pedido RemoverPedido(Guid idPedido)
-    {
-        Pedido pedidoSelecionado = null;
+//     public Pedido RemoverPedido(Guid idPedido)
+//     {
+//         Pedido pedidoSelecionado = null;
 
-        foreach (var p in Pedidos)
-        {
-            if (p.Id == idPedido)
-                pedidoSelecionado = p;
-        }
+//         foreach (var p in Pedidos)
+//         {
+//             if (p.Id == idPedido)
+//                 pedidoSelecionado = p;
+//         }
 
-        if (pedidoSelecionado == null)
-            return null;
+//         if (pedidoSelecionado == null)
+//             return null;
 
-        Pedidos.Remove(pedidoSelecionado);
+//         Pedidos.Remove(pedidoSelecionado);
 
-        return pedidoSelecionado;
-    }
+//         return pedidoSelecionado;
+//     }
 
-    public decimal CalcularValorTotal()
-    {
-        decimal valorTotal = 0;
+//     public decimal CalcularValorTotal()
+//     {
+//         decimal valorTotal = 0;
 
-        foreach (var p in Pedidos)
-            valorTotal += p.CalcularTotalParcial();
+//         foreach (var p in Pedidos)
+//             valorTotal += p.CalcularTotalParcial();
 
-        return valorTotal;
-    }
+//         return valorTotal;
+//     }
 
-    public override void AtualizarRegistro(Conta registroAtualizado)
-    {
-        EstaAberta = registroAtualizado.EstaAberta;
-        Fechamento = registroAtualizado.Fechamento;
-    }
-}
+//     public override void AtualizarRegistro(Conta registroAtualizado)
+//     {
+//         EstaAberta = registroAtualizado.EstaAberta;
+//         Fechamento = registroAtualizado.Fechamento;
+//     }
+// }
