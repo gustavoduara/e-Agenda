@@ -1,4 +1,4 @@
-﻿namespace eAgenda.Dominio.Compartilhado;
+﻿namespace e_Agenda.Dominio.Compartilhado;
 
 public abstract class EntidadeBase<T>
 {

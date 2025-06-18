@@ -1,12 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿
+namespace e_Agenda.Infraestrura.Arquivos.Compartilhado;
+using System.Text.Json.Serialization;
 using System.Text.Json;
-using e-Agenda.Dominio.ModuloMesa;
-using e-Agenda.Dominio.ModuloGarcom;
-using e-Agenda.Dominio.ModuloProduto;
-using e-Agenda.Dominio.ModuloConta;
-
-namespace e-Agenda.Infraestrura.Arquivos.Compartilhado;
-
 public class ContextoDados
 {
     private string pastaArmazenamento = "C:\\temp";
