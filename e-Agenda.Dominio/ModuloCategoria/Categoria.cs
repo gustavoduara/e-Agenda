@@ -8,7 +8,7 @@ namespace ControleDeBar.Dominio.ModuloConta;
 public class Conta : EntidadeBase<Conta>
 {
     public string Titular { get; set; }
-    public Mesa Mesa { get; set; }
+    public Tarefas Mesa { get; set; }
     public Garcom Garcom { get; set; }
     public DateTime Abertura { get; set; }
     public DateTime Fechamento { get; set; }
@@ -20,7 +20,7 @@ public class Conta : EntidadeBase<Conta>
         Pedidos = new List<Pedido>();
     }
 
-    public Conta(string titular, Mesa mesa, Garcom garcom) : this()
+    public Conta(string titular, Tarefas mesa, Garcom garcom) : this()
     {
         Id = Guid.NewGuid();
         Titular = titular;
