@@ -11,12 +11,15 @@ public static class ContatoExtensions
         return new Contato(formularioVM.Nome, formularioVM.);
     }
 
-    public static DetalhesProdutoViewModel ParaDetalhesVM(this Produto produto)
+    public static DetalhesContatoViewModel ParaDetalhesVM(this Contato contato)
     {
-        return new DetalhesProdutoViewModel(
-                produto.Id,
-                produto.Nome,
-                produto.Valor
+        return new DetalhesContatoViewModel(
+                contato.Id,
+                contato.Nome,
+                contato.Email,
+                contato.Telefone,
+                contato.Cargo,
+                contato.Empresa
         );
     }
 }
