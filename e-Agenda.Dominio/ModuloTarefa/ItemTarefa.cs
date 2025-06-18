@@ -1,11 +1,11 @@
 ﻿namespace e_Agenda.Dominio.ModuloTarefas;
 
-public class ItemTarefas
+public class ItemTarefa
 {
     public string Titulo { get; set; }
     public bool Concluido { get; private set; }
 
-    public ItemTarefas(string titulo)
+    public ItemTarefa(string titulo)
     {
         Titulo = titulo;
         Concluido = false;

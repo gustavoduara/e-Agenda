@@ -13,12 +13,12 @@ public class ContextoDados
     private string arquivoArmazenamento = "dados-e-agenda.json";
 
     public List<Contato> Contatos { get; set; }
-    public List<Tarefas> Tarefas { get; set; }
+    public List<Tarefa> Tarefas { get; set; }
 
     public ContextoDados()
     {
         Contatos = new List<Contato>();
-        Tarefas = new List<Tarefas>();
+        Tarefas = new List<Tarefa>();
     }
 
     public ContextoDados(bool carregarDados) : this()

@@ -3,7 +3,7 @@ using e_Agenda.Dominio.ModuloTarefas;
 
 namespace e_Agenda.Dominio.ModuloTarefas;
 
-public class Tarefas : EntidadeBase<Tarefas>
+public class Tarefa : EntidadeBase<Tarefa>
 {
     public string Titulo { get; set; }
     public string Prioridade { get; set; }
@@ -12,28 +12,28 @@ public class Tarefas : EntidadeBase<Tarefas>
     public bool Concluida => PercentualConcluido == 100;
     public int PercentualConcluido { get; private set; }
 
-    public List<ItemTarefas> Itens { get; set; }
+    public List<ItemTarefa> Itens { get; set; }
 
-    public Tarefas()
+    public Tarefa()
     {
-        Itens = new List<ItemTarefas>();
+        Itens = new List<ItemTarefa>();
         DataCriacao = DateTime.Now;
     }
 
-    public Tarefas(string titulo, string prioridade) : this()
+    public Tarefa(string titulo, string prioridade) : this()
     {
         Id = Guid.NewGuid();
         Titulo = titulo;
         Prioridade = prioridade;
     }
 
-    public void AdicionarItem(ItemTarefas item)
+    public void AdicionarItem(ItemTarefa item)
     {
         Itens.Add(item);
         AtualizarPercentual();
     }
 
-    public void RemoverItem(ItemTarefas item)
+    public void RemoverItem(ItemTarefa item)
     {
         Itens.Remove(item);
         AtualizarPercentual();
@@ -56,7 +56,7 @@ public class Tarefas : EntidadeBase<Tarefas>
             DataConclusao = null;
     }
 
-    public override void AtualizarRegistro(Tarefas registroEditado)
+    public override void AtualizarRegistro(Tarefa registroEditado)
     {
         Titulo = registroEditado.Titulo;
         Prioridade = registroEditado.Prioridade;
