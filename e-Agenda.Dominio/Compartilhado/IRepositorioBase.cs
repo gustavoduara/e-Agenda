@@ -1,6 +1,6 @@
-﻿namespace ControleDeBar.Dominio.Compartilhado;
+﻿namespace e_Agenda.Dominio.Compartilhado;
 
-public interface IRepositorio<T> where T : EntidadeBase<T>
+public interface IRepositorioBase<T> where T : EntidadeBase<T>
 {
     public void CadastrarRegistro(T novoRegistro);
 

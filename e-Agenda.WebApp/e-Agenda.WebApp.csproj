@@ -13,4 +13,8 @@
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\e-Agenda.Infraestrutura.Aquivos\e-Agenda.Infraestrutura.Aquivos.csproj" />
+  </ItemGroup>
+
 </Project>

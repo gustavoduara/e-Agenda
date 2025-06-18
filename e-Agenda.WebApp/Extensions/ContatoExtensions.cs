@@ -1,12 +1,14 @@
 ﻿
 
+using e_Agenda.Dominio.ModuloContato;
+
 namespace e_Agenda.WebApp.Extensions;
 
-public static class ProdutoExtensions
+public static class ContatoExtensions
 {
-    public static Produto ParaEntidade(this FormularioProdutoViewModel formularioVM)
+    public static Contato ParaEntidade(this FormularioContatoViewModel formularioVM)
     {
-        return new Produto(formularioVM.Nome, formularioVM.Valor);
+        return new Contato(formularioVM.Nome, formularioVM.);
     }
 
     public static DetalhesProdutoViewModel ParaDetalhesVM(this Produto produto)
