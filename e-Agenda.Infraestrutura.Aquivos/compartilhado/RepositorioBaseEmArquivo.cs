@@ -1,6 +1,7 @@
-﻿using e-Agenda.Dominio.Compartilhado;
+﻿
+using e_Agenda.Dominio.Compartilhado;
 
-namespace e-Agenda.Infraestrura.Arquivos.Compartilhado;
+namespace e_Agenda.Infraestrura.Arquivos.Compartilhado;
 
 public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
 {
