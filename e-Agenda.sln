@@ -15,17 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-Agenda.Dominio", "e-Agend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-Agenda.Infraestrutura.Aquivos", "e-Agenda.Infraestrutura.Aquivos\e-Agenda.Infraestrutura.Aquivos.csproj", "{621623C5-D448-4F23-AE49-5ED2BDCEAA76}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModuloContato", "ModuloContato", "{371322FE-1C68-4657-A071-2940D21C9368}"
-	ProjectSection(SolutionItems) = preProject
-		RepositorioContatoEmArquivo.cs = RepositorioContatoEmArquivo.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModuloContato", "ModuloContato", "{B6BA31B9-1AAD-42CE-91A2-C44EC933B3DA}"
-	ProjectSection(SolutionItems) = preProject
-		Contato.cs = Contato.cs
-		IRepositorioContato.cs = IRepositorioContato.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,8 +41,6 @@ Global
 		{E1DCAF52-86C1-4DA7-866E-DAC48EEE4571} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{94E8F256-B0F5-48ED-9DA3-A2DEB186EA1D} = {633FFA2B-7805-4847-859D-A454E00D91B3}
 		{621623C5-D448-4F23-AE49-5ED2BDCEAA76} = {A9855F9F-1CB1-4F33-8365-BBF0F015DC90}
-		{371322FE-1C68-4657-A071-2940D21C9368} = {A9855F9F-1CB1-4F33-8365-BBF0F015DC90}
-		{B6BA31B9-1AAD-42CE-91A2-C44EC933B3DA} = {633FFA2B-7805-4847-859D-A454E00D91B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31178C57-B382-4D41-8598-05ABB60E277B}

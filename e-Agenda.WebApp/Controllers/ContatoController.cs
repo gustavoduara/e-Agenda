@@ -1,6 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using e_Agenda.WebApp.Extensions;
+using e_Agenda.Infraestrura.Arquivos.Compartilhado;
+using e_Agenda.Dominio.ModuloContato;
+using e_Agenda.Infraestrura.Arquivos.ModuloContato;
 
 namespace e_Agenda.WebApp.Controllers
 {
@@ -18,9 +21,9 @@ namespace e_Agenda.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var registros = repositorioProduto.SelecionarRegistros();
+            var registros = repositorioContato.SelecionarRegistros();
 
-            var visualizarVM = new VisualizarProdutosViewModel(registros);
+            var visualizarVM = new VisualizarContatosViewModel(registros);
 
             return View(visualizarVM);
         }
@@ -29,18 +32,18 @@ namespace e_Agenda.WebApp.Controllers
         [HttpGet("cadastrar")]
         public IActionResult Cadastrar()
         {
-            var cadastrarVM = new CadastrarProdutoViewModel();
+            var cadastrarVM = new CadastrarContatoViewModel();
 
             return View(cadastrarVM);
         }
 
 
         [HttpPost("cadastrar")]
-        public IActionResult Cadastrar(CadastrarProdutoViewModel cadastrarVM)
+        public IActionResult Cadastrar(CadastrarContatoViewModel cadastrarVM)
         {
             var entidade = cadastrarVM.ParaEntidade();
 
-            repositorioProduto.CadastrarRegistro(entidade);
+            repositorioContato.CadastrarRegistro(entidade);
 
             return RedirectToAction(nameof(Index));
         }
@@ -48,19 +51,19 @@ namespace e_Agenda.WebApp.Controllers
         [HttpGet("editar/{id:guid}")]
         public IActionResult Editar(Guid id)
         {
-            var registroSelecionado = repositorioProduto.SelecionarRegistroPorId(id);
-            var editarVM = new EditarProdutoViewModel(id, registroSelecionado.Nome, registroSelecionado.Preco);
+            var registroSelecionado = repositorioContato.SelecionarRegistroPorId(id);
+            var editarVM = new EditarContatoViewModel(id, registroSelecionado.Nome, registroSelecionado.Email,registroSelecionado.Telefone, registroSelecionado.Cargo, registroSelecionado.Empresa);
 
             return View(editarVM);
         }
 
 
         [HttpPost("editar/{id:guid}")]
-        public IActionResult Editar(Guid id, EditarProdutoViewModel editarVM)
+        public IActionResult Editar(Guid id, EditarContatoViewModel editarVM)
         {
             var entidadeEditada = editarVM.ParaEntidade();
 
-            repositorioProduto.EditarRegistro(id, entidadeEditada);
+            repositorioContato.EditarRegistro(id, entidadeEditada);
 
             return RedirectToAction(nameof(Index));
         }
@@ -68,9 +71,9 @@ namespace e_Agenda.WebApp.Controllers
         [HttpGet("excluir/{id:guid}")]
         public ActionResult Excluir(Guid id)
         {
-            var registroSelecionado = repositorioProduto.SelecionarRegistroPorId(id);
+            var registroSelecionado = repositorioContato.SelecionarRegistroPorId(id);
 
-            var excluirVM = new ExcluirProdutoViewModel(registroSelecionado.Id, registroSelecionado.Nome);
+            var excluirVM = new ExcluirContatoViewModel(registroSelecionado.Id, registroSelecionado.Nome);
 
             return View(excluirVM);
         }
@@ -78,7 +81,7 @@ namespace e_Agenda.WebApp.Controllers
         [HttpPost("excluir/{id:guid}")]
         public ActionResult ExcluirConfirmado(Guid id)
         {
-            repositorioProduto.ExcluirRegistro(id);
+            repositorioContato.ExcluirRegistro(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -86,12 +89,15 @@ namespace e_Agenda.WebApp.Controllers
         [HttpGet("detalhes/{id:guid}")]
         public ActionResult Detalhes(Guid id)
         {
-            var registroSelecionado = repositorioProduto.SelecionarRegistroPorId(id);
+            var registroSelecionado = repositorioContato.SelecionarRegistroPorId(id);
 
-            var detalhesVM = new DetalhesProdutoViewModel(
+            var detalhesVM = new DetalhesContatoViewModel(
                 id,
                 registroSelecionado.Nome,
-                registroSelecionado.Preco
+                registroSelecionado.Email,
+                registroSelecionado.Telefone,
+                registroSelecionado.Cargo,
+                registroSelecionado.Empresa
             );
 
             return View(detalhesVM);
