@@ -1,7 +1,7 @@
-﻿using ControleDeBar.Dominio.ModuloTarefa;
+﻿using e_Agenda.Dominio.ModuloTarefas;
 using e_Agenda.Dominio.Compartilhado;
 
-namespace ControleDeBar.Dominio.ModuloMesa;
+namespace e_Agenda.Dominio.ModuloTarefas;
 
 public class Tarefas : EntidadeBase<Tarefas>
 {

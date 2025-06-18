@@ -1,4 +1,4 @@
-﻿namespace ControleDeBar.Dominio.ModuloTarefa;
+﻿namespace e_Agenda.Dominio.ModuloTarefas;
 
 public class ItemTarefas
 {
