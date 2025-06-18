@@ -4,6 +4,7 @@ using e_Agenda.WebApp.Extensions;
 using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.Infraestrura.Arquivos.ModuloContato;
+using e_Agenda.WebApp.Models;
 
 namespace e_Agenda.WebApp.Controllers
 {
