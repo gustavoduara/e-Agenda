@@ -1,19 +1,12 @@
-﻿using e_Agenda.Dominio.ModuloTarefas;
-using e_Agenda.Dominio.Compartilhado;
+﻿using e_Agenda.Dominio.Compartilhado;
+using e_Agenda.Dominio.ModuloTarefas;
 
 namespace e_Agenda.Dominio.ModuloTarefas;
 
 public class Tarefas : EntidadeBase<Tarefas>
 {
-    public enum PrioridadeTarefa
-    {
-        Baixa,
-        Normal,
-        Alta
-    }
-
     public string Titulo { get; set; }
-    public PrioridadeTarefa Prioridade { get; set; }
+    public string Prioridade { get; set; }
     public DateTime DataCriacao { get; set; }
     public DateTime? DataConclusao { get; set; }
     public bool Concluida => PercentualConcluido == 100;
@@ -27,7 +20,7 @@ public class Tarefas : EntidadeBase<Tarefas>
         DataCriacao = DateTime.Now;
     }
 
-    public Tarefas(string titulo, PrioridadeTarefa prioridade) : this()
+    public Tarefas(string titulo, string prioridade) : this()
     {
         Id = Guid.NewGuid();
         Titulo = titulo;
