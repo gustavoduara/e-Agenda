@@ -1,91 +1,65 @@
-// using e .Dominio.Compartilhado;
+using e_Agenda.Dominio.Compartilhado;
+using e_Agenda.Dominio.ModuloDespesa;
 
-// namespace e_Agenda.Dominio.ModuloCategoria;
+namespace e_Agenda.Dominio.ModuloCategoria;
 
-// public class Categoria : EntidadeBase<Categoria>
-// {
-//     public string Nome { get; set; }
-//     public string Descricao { get; set; }
-//     public bool EstaAtiva { get; set; }
+public class Categoria : EntidadeBase<Categoria>
+{
+    public string Titulo { get; set; }
+    public List<Despesa> Despesas { get; set; }
 
-//     public Conta()
-//     {
-//         Pedidos = new List<Pedido>();
-//     }
+    public Categoria()
+    {
+        Despesas = new List<Despesa>();
+    }
 
-//     public Conta(string titular, Tarefas mesa, Garcom garcom) : this()
-//     {
-//         Id = Guid.NewGuid();
-//         Titular = titular;
-//         Mesa = mesa;
-//         Garcom = garcom;
+    public Categoria(string titulo) : this()
+    {
+        Id = Guid.NewGuid();
+        Titulo = titulo;
+    }
 
-//         Abrir();
-//     }
+    public void AdicionarDespesa(Despesa despesa)
+    {
+        if (!Despesas.Contains(despesa))
+        {
+            Despesas.Add(despesa);
+            if (!despesa.Categorias.Contains(this))
+            {
+                despesa.Categorias.Add(this);
+            }
+        }
+    }
 
-//     public void Abrir()
-//     {
-//         EstaAberta = true;
-//         Abertura = DateTime.Now;
+    public void RemoverDespesa(Despesa despesa)
+    {
+        if (Despesas.Contains(despesa))
+        {
+            Despesas.Remove(despesa);
+            if (despesa.Categorias.Contains(this))
+            {
+                despesa.Categorias.Remove(this);
+            }
+        }
+    }
 
-//         Mesa.Ocupar();
-//     }
+    public decimal CalcularValorTotalDespesas()
+    {
+        return Despesas.Sum(d => d.Valor);
+    }
 
-//     public void Fechar()
-//     {
-//         EstaAberta = false;
-//         Fechamento = DateTime.Now;
+    public bool PodeSerExcluida()
+    {
+        return Despesas.Count == 0;
+    }
 
-//         Mesa.Desocupar();
-//     }
+    public override void AtualizarRegistro(Categoria registroAtualizado)
+    {
+        Titulo = registroAtualizado.Titulo;
+    }
 
-//     public Pedido RegistrarPedido(Produto produto, int quantidadeEscolhida)
-//     {
-//         Pedido novoPedido = new Pedido(produto, quantidadeEscolhida);
-
-//         Pedidos.Add(novoPedido);
-
-//         return novoPedido;
-//     }
-
-//     public Pedido RemoverPedido(Pedido pedido)
-//     {
-//         Pedidos.Remove(pedido);
-
-//         return pedido;
-//     }
-
-//     public Pedido RemoverPedido(Guid idPedido)
-//     {
-//         Pedido pedidoSelecionado = null;
-
-//         foreach (var p in Pedidos)
-//         {
-//             if (p.Id == idPedido)
-//                 pedidoSelecionado = p;
-//         }
-
-//         if (pedidoSelecionado == null)
-//             return null;
-
-//         Pedidos.Remove(pedidoSelecionado);
-
-//         return pedidoSelecionado;
-//     }
-
-//     public decimal CalcularValorTotal()
-//     {
-//         decimal valorTotal = 0;
-
-//         foreach (var p in Pedidos)
-//             valorTotal += p.CalcularTotalParcial();
-
-//         return valorTotal;
-//     }
-
-//     public override void AtualizarRegistro(Conta registroAtualizado)
-//     {
-//         EstaAberta = registroAtualizado.EstaAberta;
-//         Fechamento = registroAtualizado.Fechamento;
-//     }
-// }
+    public override string ToString()
+    {
+        return $"{Titulo} ({Despesas.Count} despesas)";
+    }
+}
