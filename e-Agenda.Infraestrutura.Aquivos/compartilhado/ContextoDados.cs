@@ -3,6 +3,7 @@ using System.Text.Json;
 using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.Dominio.ModuloCategoria;
 using e_Agenda.Dominio.ModuloDespesa;
+using e_Agenda.Dominio.ModuloTarefas;
 
 namespace e_Agenda.Infraestrura.Arquivos.Compartilhado;
 
@@ -15,12 +16,14 @@ public class ContextoDados
     public List<Contato> Contatos { get; set; }
     public List<Categoria> Categorias { get; set; }
     public List<Despesa> Despesas { get; set; }
+    public List<Tarefa> Tarefas { get; set; }
 
     public ContextoDados()
     {
         Contatos = new List<Contato>();
         Categorias = new List<Categoria>();
         Despesas = new List<Despesa>();
+        Tarefas = new List<Tarefa>();
     }
 
     public ContextoDados(bool carregarDados) : this()
@@ -69,35 +72,35 @@ public class ContextoDados
         Categorias = contextoArmazenado.Categorias;
         Despesas = contextoArmazenado.Despesas;
 
-        // Re-establish bidirectional relationships after loading
+        
         RestaurarRelacionamentos();
     }
 
     private void RestaurarRelacionamentos()
     {
-        // Clear all relationships first
+        
         foreach (var categoria in Categorias)
         {
             categoria.Despesas.Clear();
         }
 
-        // Rebuild relationships from despesas to categorias
+        
         foreach (var despesa in Despesas)
         {
             foreach (var categoriaId in despesa.Categorias.Select(c => c.Id).ToList())
             {
-                // Find the actual categoria instance from the repository
+                
                 var categoriaReal = Categorias.FirstOrDefault(c => c.Id == categoriaId);
                 if (categoriaReal != null)
                 {
-                    // Replace the categoria in despesa with the real instance
+                    
                     var categoriaIndex = despesa.Categorias.FindIndex(c => c.Id == categoriaId);
                     if (categoriaIndex >= 0)
                     {
                         despesa.Categorias[categoriaIndex] = categoriaReal;
                     }
 
-                    // Add despesa to categoria if not already there
+                    
                     if (!categoriaReal.Despesas.Contains(despesa))
                     {
                         categoriaReal.Despesas.Add(despesa);
@@ -105,5 +108,6 @@ public class ContextoDados
                 }
             }
         }
+        Tarefas = contextoArmazenado.Tarefas;
     }
 }

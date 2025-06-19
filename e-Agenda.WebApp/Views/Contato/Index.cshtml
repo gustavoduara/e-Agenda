@@ -8,7 +8,7 @@
 }
 
 <p>
-    <a class="btn btn-primary px-4" href="/contatos/cadastrar">
+    <a class="btn btn-dark px-4" href="/contatos/cadastrar">
         <i class="bi bi-plus"></i>
         Cadastrar Novo/a
     </a>
@@ -20,18 +20,18 @@
     @foreach (var item in Model.Registros)
     {
         <div class="col-12 col-md-3">
-            <div class="card border-0">
+            <div class="card border-0 bg-dark text-white">
                 <div class="card-body">
-                    <h4 class="card-title">Produto:</h4>
+                    <h4 class="card-title">Contato:</h4>
                     <h5>@item.Nome</h5>
                     <span class="d-flex gap-1 justify-content-end mt-4">
-                        <a href="/contatos/detalhes/@item.Id" class="btn btn-secondary rounded-circle opcao-card">
+                        <a href="/contatos/detalhes/@item.Id" class="btn btn-light rounded-circle opcao-card">
                             <i class="bi bi-search"></i>
                         </a>
-                        <a href="/contatos/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
+                        <a href="/contatos/editar/@item.Id" class="btn btn-light rounded-circle opcao-card">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="/contatos/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
+                        <a href="/contatos/excluir/@item.Id" class="btn btn-light rounded-circle opcao-card">
                             <i class="bi bi-trash"></i>
                         </a>
                     </span>

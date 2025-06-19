@@ -2,7 +2,7 @@
 
 namespace e_Agenda.Dominio.ModuloTarefas
 {
-    public interface IRepositorioTarefas : IRepositorioBase<Tarefas>
+    public interface IRepositorioTarefa : IRepositorioBase<Tarefa>
     {
     }
 }
