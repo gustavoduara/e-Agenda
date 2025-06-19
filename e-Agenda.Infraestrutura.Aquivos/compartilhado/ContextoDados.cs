@@ -71,7 +71,7 @@ public class ContextoDados
         Contatos = contextoArmazenado.Contatos;
         Categorias = contextoArmazenado.Categorias;
         Despesas = contextoArmazenado.Despesas;
-
+        Tarefas = contextoArmazenado.Tarefas;
         
         RestaurarRelacionamentos();
     }
@@ -108,6 +108,5 @@ public class ContextoDados
                 }
             }
         }
-        Tarefas = contextoArmazenado.Tarefas;
     }
 }
