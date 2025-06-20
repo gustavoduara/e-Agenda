@@ -2,15 +2,34 @@
 using e_Agenda.WebApp.Extensions;
 using e_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.ComponentModel.DataAnnotations;
 
 namespace e_Agenda.WebApp.Models
 {
     public abstract class FormularioContatoViewModel
     {
+
+        [Required(ErrorMessage = "O Campo nome é obrigatório")]
+        [MinLength(3, ErrorMessage = "O Campo nome deve conter ao minimo 3 caracteres")]
+        [MaxLength(100, ErrorMessage = "O Campo nome deve conter ao maximo 100 caracteres")]
         public string Nome { get; set; }
+
+
+
+        [Required(ErrorMessage = "O Campo email é obrigatório")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "O campo email deve serguir um padrão correto")]
         public string Email { get; set; }
+
+
+        [Required(ErrorMessage = "O Campo telefone é obrigatório")]
         public string Telefone { get; set; }
+
+
+        [Required(ErrorMessage = "O Campo cargo é obrigatório")]
         public string Cargo { get; set; }
+
+
+        [Required(ErrorMessage = "O Campo empresa é obrigatório")]
         public string Empresa { get; set; }
     }
 
