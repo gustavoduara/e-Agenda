@@ -1,5 +1,4 @@
 ﻿using e_Agenda.Dominio.Compartilhado;
-using e_Agenda.Dominio.ModuloTarefas;
 
 namespace e_Agenda.Dominio.ModuloTarefas;
 
@@ -62,4 +61,5 @@ public class Tarefa : EntidadeBase<Tarefa>
         Prioridade = registroEditado.Prioridade;
         AtualizarPercentual();
     }
+
 }

@@ -2,11 +2,13 @@
 
 public class ItemTarefa
 {
+    public Guid Id { get; set; }
     public string Titulo { get; set; }
     public bool Concluido { get; private set; }
 
     public ItemTarefa(string titulo)
     {
+
         Titulo = titulo;
         Concluido = false;
     }
