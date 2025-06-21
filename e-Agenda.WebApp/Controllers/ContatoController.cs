@@ -18,7 +18,7 @@ namespace e_Agenda.WebApp.Controllers
             contextoDados = new ContextoDados(true);
             repositorioContato = new RepositorioContatoEmArquivo(contextoDados);
         }
-
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -42,6 +42,10 @@ namespace e_Agenda.WebApp.Controllers
         [HttpPost("cadastrar")]
         public IActionResult Cadastrar(CadastrarContatoViewModel cadastrarVM)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(cadastrarVM);
+            }
             var entidade = cadastrarVM.ParaEntidade();
 
             repositorioContato.CadastrarRegistro(entidade);

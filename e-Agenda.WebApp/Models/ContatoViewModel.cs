@@ -108,6 +108,10 @@ namespace e_Agenda.WebApp.Models
         {
             Id = id;
             Nome = nome;
+            Email = email;
+            Telefone = telefone;
+            Cargo = cargo;
+            Empresa = empresa;
         }
     }
 
