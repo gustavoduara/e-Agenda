@@ -25,11 +25,9 @@ namespace e_Agenda.WebApp.Models
         public string Telefone { get; set; }
 
 
-        [Required(ErrorMessage = "O Campo cargo é obrigatório")]
         public string Cargo { get; set; }
 
 
-        [Required(ErrorMessage = "O Campo empresa é obrigatório")]
         public string Empresa { get; set; }
     }
 
