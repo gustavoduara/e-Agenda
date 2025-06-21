@@ -12,6 +12,7 @@ namespace e_Agenda.WebApp.Controllers
     public class ContatoController : Controller
     {
         private readonly ContextoDados contextoDados;
+        private readonly IRepositorioContato repositorioContato;
         public ContatoController()
         {
             contextoDados = new ContextoDados(true);
