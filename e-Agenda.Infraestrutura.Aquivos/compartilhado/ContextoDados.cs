@@ -4,6 +4,7 @@ using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.Dominio.ModuloCategoria;
 using e_Agenda.Dominio.ModuloDespesa;
 using e_Agenda.Dominio.ModuloTarefas;
+using e_Agenda.Dominio.ModuloCompromisso;
 
 namespace e_Agenda.Infraestrura.Arquivos.Compartilhado;
 
@@ -14,6 +15,7 @@ public class ContextoDados
     private string arquivoArmazenamento = "dados-e-agenda.json";
 
     public List<Contato> Contatos { get; set; }
+    public List<Compromisso> Compromissos { get; set; }
     public List<Categoria> Categorias { get; set; }
     public List<Despesa> Despesas { get; set; }
     public List<Tarefa> Tarefas { get; set; }
@@ -24,6 +26,7 @@ public class ContextoDados
         Categorias = new List<Categoria>();
         Despesas = new List<Despesa>();
         Tarefas = new List<Tarefa>();
+        Compromissos = new List<Compromisso>();
     }
 
     public ContextoDados(bool carregarDados) : this()
@@ -72,6 +75,7 @@ public class ContextoDados
         Categorias = contextoArmazenado.Categorias;
         Despesas = contextoArmazenado.Despesas;
         Tarefas = contextoArmazenado.Tarefas;
+        Compromissos = contextoArmazenado.Compromissos;
         
         RestaurarRelacionamentos();
     }

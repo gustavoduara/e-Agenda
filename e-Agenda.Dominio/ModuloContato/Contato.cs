@@ -24,6 +24,14 @@ namespace e_Agenda.Dominio.ModuloContato
             Empresa = empresa;
         }
 
+        public Contato(string nome, string email, string telefone) : this()
+        {
+            Id = Guid.NewGuid();
+            Nome = nome;
+            Email = email;
+            Telefone = telefone;
+        }
+
         public override void AtualizarRegistro(Contato registroEditado)
         {
             Nome = registroEditado.Nome;
