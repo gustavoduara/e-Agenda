@@ -1,6 +1,7 @@
 ﻿
 
 using e_Agenda.Dominio.Compartilhado;
+using e_Agenda.Dominio.ModuloContato;
 
 namespace e_Agenda.Dominio.ModuloCompromisso
 {
@@ -13,11 +14,12 @@ namespace e_Agenda.Dominio.ModuloCompromisso
         public string TipoCompromisso  { get; set; }
         public string Local { get; set; }
         public string Link { get; set; }
-        public string Contato { get; set; }
+
+        public Contato Contato;
 
         public Compromisso() { }
 
-        public Compromisso(string assunto, DateTime dataOcorrencia, DateTime horaInicio, DateTime horaTermino, string tipoCompromisso, string local, string link, string contato) : this()
+        public Compromisso(string assunto, DateTime dataOcorrencia, DateTime horaInicio, DateTime horaTermino, string tipoCompromisso, string local, string link, Contato contato) : this()
         {
             Id = Guid.NewGuid();
             Assunto = assunto;
@@ -28,7 +30,6 @@ namespace e_Agenda.Dominio.ModuloCompromisso
             Local = local;
             Link = link;
             Contato = contato;
-
         }
 
         public override void AtualizarRegistro(Compromisso registroEditado)
@@ -40,7 +41,6 @@ namespace e_Agenda.Dominio.ModuloCompromisso
             TipoCompromisso = registroEditado.TipoCompromisso;
             Local = registroEditado.Local;
             Link = registroEditado.Link;
-            Contato = registroEditado.Contato;
         }
 
     }

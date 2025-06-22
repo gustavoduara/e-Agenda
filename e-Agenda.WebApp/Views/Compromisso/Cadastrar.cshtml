@@ -1,59 +1,78 @@
-﻿@using e_Agenda.WebApp.Models
-@model CadastrarContatoViewModel
-
+﻿@using e_Agenda.ConsoleApp.Models
+@model CadastrarCompromissoViewModel
 
 @{
 	Layout = "_Layout";
-	ViewBag.Titulo = "Cadastro de contatos";
+	ViewBag.Titulo = "Cadastro de compromissos";
 }
-<style>
-	.bg-dark-gray {
-		background-color: #3a3b3c; /* cinza mais escuro que secondary, mais claro que dark */
-		color: white;
-	}
-</style>
 
 <hr />
+
 <div class="row justify-content-center my-5">
 	<div class="col-md-8">
-		<div class="bg-dark-gray card text-white">
+		<div class="bg-dark-gray card bg-dark text-white">
 			<div class="card-body">
 
-				<form action="/contatos/cadastrar" method="post">
-					@Html.AntiForgeryToken()
-					<h3>Formulario de Cadastro</h3>
+				<form asp-action="Cadastrar" method="post">
+					<h3>Formulário de Cadastro</h3>
+
+
 					<div class="form-group d-grid gap-2">
-						<label for="Nome" class="control-label fs-5">Nome: </label>
-						<input name="Nome" class="form-control" type="text" value="@Model.Nome">
+						<label asp-for="Assunto" class="control-label fs-5">Assunto:</label>
+						<input asp-for="Assunto" class="form-control" type="text" value="@Model.Assunto" />
+						<span asp-validation-for="Assunto" class="text-danger"></span>
 					</div>
 
 					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Email" class="control-label fs-5">Email: </label>
-						<input name="Email" class="form-control" type="text" value="@Model.Email">
+						<label asp-for="DataOcorrencia" class="control-label fs-5">Data:</label>
+						<input asp-for="DataOcorrencia" class="form-control" type="date" value="@Model.DataOcorrencia.ToString("yyyy-MM-dd")" />
+						<span asp-validation-for="DataOcorrencia" class="text-danger"></span>
 					</div>
 
 					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Telefone" class="control-label fs-5">Telefone: </label>
-						<input name="Telefone" class="form-control" type="text" value="@Model.Telefone">
+						<label asp-for="HoraInicio" class="control-label fs-5">Hora de Início:</label>
+						<input asp-for="HoraInicio" class="form-control" type="time" value="@Model.HoraInicio.ToString("HH\\:mm")" />
+						<span asp-validation-for="HoraInicio" class="text-danger"></span>
 					</div>
 
 					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Cargo" class="control-label fs-5">Cargo: </label>
-						<input name="Cargo" class="form-control" type="text" value="@Model.Cargo">
+						<label asp-for="HoraTermino" class="control-label fs-5">Hora de Término:</label>
+						<input asp-for="HoraTermino" class="form-control" type="time" value="@Model.HoraTermino.ToString("HH\\:mm")" />
+						<span asp-validation-for="HoraTermino" class="text-danger"></span>
 					</div>
 
-					
 					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Empresa" class="control-label fs-5">Empresa: </label>
-						<input name="Empresa" class="form-control" type="text" value="@Model.Empresa">
+						<label asp-for="TipoCompromisso" class="control-label fs-5">Tipo de Compromisso:</label>
+						<input asp-for="TipoCompromisso" class="form-control" type="text" value="@Model.TipoCompromisso" />
+						<span asp-validation-for="TipoCompromisso" class="text-danger"></span>
 					</div>
 
+					<div class="form-group d-grid gap-2 mt-3">
+						<label asp-for="Local" class="control-label fs-5">Local:</label>
+						<input asp-for="Local" class="form-control" type="text" value="@Model.Local" />
+						<span asp-validation-for="Local" class="text-danger"></span>
+					</div>
 
-					<div class="form-group  d-flex align-items-center justify-content-end gap-3 mt-5">
-						<a class="text-light " href="/contatos"> Voltar</a>
-						<button type="submit" class="btn btn-light px-5"> Confirmar</button>
+					<div class="form-group d-grid gap-2 mt-3">
+						<label asp-for="Link" class="control-label fs-5">Link:</label>
+						<input asp-for="Link" class="form-control" type="text" value="@Model.Link" />
+						<span asp-validation-for="Link" class="text-danger"></span>
+					</div>
+
+					<div class="form-group d-grid gap-2 mt-3">
+						<label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
+						<select asp-for="ContatoId" class="form-control" asp-items="ViewBag.Contatos">
+							<option value="">Selecione um contato</option>
+						</select>
+						<span asp-validation-for="ContatoId" class="text-danger"></span>
+					</div>
+
+					<div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+						<a class="text-light" href="/compromissos">Voltar</a>
+						<button type="submit" class="btn btn-light px-5">Confirmar</button>
 					</div>
 				</form>
+
 			</div>
 		</div>
 	</div>

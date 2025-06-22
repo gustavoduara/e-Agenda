@@ -1,7 +1,6 @@
 ﻿using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.WebApp.Extensions;
 using e_Agenda.WebApp.Models;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.ComponentModel.DataAnnotations;
 
 namespace e_Agenda.WebApp.Models
