@@ -59,6 +59,7 @@ namespace e_Agenda.WebApp.Controllers
                     break;
                 }
             }
+
             if (!ModelState.IsValid)
             {
                 return View(cadastrarVM);
