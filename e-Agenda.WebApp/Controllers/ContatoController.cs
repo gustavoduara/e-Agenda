@@ -42,7 +42,24 @@ namespace e_Agenda.WebApp.Controllers
         [HttpPost("cadastrar")]
         public IActionResult Cadastrar(CadastrarContatoViewModel cadastrarVM)
         {
-            if(!ModelState.IsValid)
+            var registros = repositorioContato.SelecionarRegistros();
+
+            foreach(var item in registros)
+            {
+                if (item.Telefone == cadastrarVM.Telefone)
+                {
+                    ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse email");
+                    break;
+                }
+
+
+                if (item.Email == cadastrarVM.Email)
+                {
+                    ModelState.AddModelError(nameof(cadastrarVM.Email), "Já existe um contato cadastrado com esse email.");
+                    break;
+                }
+            }
+            if (!ModelState.IsValid)
             {
                 return View(cadastrarVM);
             }

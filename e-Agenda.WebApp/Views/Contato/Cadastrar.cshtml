@@ -14,6 +14,11 @@
 
 				<form asp-action="Cadastrar" method="post">
 					<h3>Formulario de Cadastro</h3>
+
+					@if (ViewData.ModelState["Cadastro Unico"]?.Errors.Count > 0)
+					{
+						
+					}
 					<div class="form-group d-grid gap-2">
 						<label asp-for="Nome" class="control-label fs-5">Nome: </label>
 						<input asp-for="Nome" class="form-control" type="text" value="@Model.Nome">
