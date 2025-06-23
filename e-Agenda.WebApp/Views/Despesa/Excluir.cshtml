@@ -1,73 +1,59 @@
 @model ExcluirDespesaViewModel
 
 @{
-    ViewData["Title"] = "Excluir Despesa";
+    Layout = "_Layout";
+    ViewBag.Titulo = "Exclusão de Despesa";
 }
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-danger text-white">
-                    <h3><i class="bi bi-exclamation-triangle"></i> Excluir Despesa</h3>
+<hr />
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card bg-dark text-white rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <h3>Formulário de Exclusão</h3>
+
+                <p class="mt-4">Você deseja realmente excluir a despesa "<strong>@Model.Descricao</strong>"?</p>
+
+                <div class="form-group d-grid gap-2 mt-3">
+                    <label for="Descricao" class="control-label fs-5">Descrição:</label>
+                    <input name="Descricao" class="form-control" type="text" value="@Model.Descricao" readonly disabled />
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-warning">
-                        <strong>Atenção!</strong> Esta ação não pode ser desfeita.
-                    </div>
 
-                    <p>Tem certeza que deseja excluir a despesa abaixo?</p>
+                <div class="form-group d-grid gap-2 mt-3">
+                    <label for="DataOcorrencia" class="control-label fs-5">Data de Ocorrência:</label>
+                    <input name="DataOcorrencia" class="form-control" type="text" value="@Model.DataOcorrencia.ToString("dd/MM/yyyy")" readonly disabled />
+                </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><strong>Descrição:</strong></td>
-                                <td>@Model.Descricao</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Data de Ocorrência:</strong></td>
-                                <td>@Model.DataOcorrencia.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Valor:</strong></td>
-                                <td>R$ @Model.Valor.ToString("F2")</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Forma de Pagamento:</strong></td>
-                                <td>@Model.FormaPagamento</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Categorias:</strong></td>
-                                <td>
-                                    @if (Model.Categorias.Any())
-                                    {
-                                        @foreach (var categoria in Model.Categorias)
-                                        {
-                                            <span class="badge bg-secondary me-1">@categoria</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Nenhuma categoria</span>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="form-group d-grid gap-2 mt-3">
+                    <label for="Valor" class="control-label fs-5">Valor:</label>
+                    <input name="Valor" class="form-control" type="text" value="R$ @Model.Valor.ToString("F2")" readonly disabled />
+                </div>
 
-                    <form asp-action="ExcluirConfirmado" method="post">
-                        <input asp-for="Id" type="hidden" />
-                        
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a asp-action="Index" class="btn btn-outline-secondary me-md-2">
-                                <i class="bi bi-arrow-left"></i> Cancelar
-                            </a>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Confirmar Exclusão
-                            </button>
+                <div class="form-group d-grid gap-2 mt-3">
+                    <label for="FormaPagamento" class="control-label fs-5">Forma de Pagamento:</label>
+                    <input name="FormaPagamento" class="form-control" type="text" value="@Model.FormaPagamento" readonly disabled />
+                </div>
+
+                @if (Model.Categorias.Any())
+                {
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label for="Categorias" class="control-label fs-5">Categorias:</label>
+                        <div class="p-2 bg-secondary rounded">
+                            @foreach (var categoria in Model.Categorias)
+                            {
+                                <span class="badge bg-dark me-1">@categoria</span>
+                            }
                         </div>
-                    </form>
-                </div>
+                    </div>
+                }
+
+                <form action="/despesas/excluir/@Model.Id" method="post">
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+                        <a class="text-white" href="/despesas">Voltar para a listagem</a>
+                        <button type="submit" class="btn btn-light px-5">Confirmar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

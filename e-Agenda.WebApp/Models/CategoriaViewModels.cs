@@ -68,13 +68,15 @@ public class DetalhesCategoriaViewModel
     public string Titulo { get; set; }
     public int QuantidadeDespesas { get; set; }
     public decimal ValorTotalDespesas { get; set; }
+    public List<DetalhesDespesaViewModel> Despesas { get; set; }
 
-    public DetalhesCategoriaViewModel(Guid id, string titulo, int quantidadeDespesas, decimal valorTotalDespesas)
+    public DetalhesCategoriaViewModel(Guid id, string titulo, int quantidadeDespesas, decimal valorTotalDespesas, List<DetalhesDespesaViewModel> despesas)
     {
         Id = id;
         Titulo = titulo;
         QuantidadeDespesas = quantidadeDespesas;
         ValorTotalDespesas = valorTotalDespesas;
+        Despesas = despesas ?? new List<DetalhesDespesaViewModel>();
     }
 }
 

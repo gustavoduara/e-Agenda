@@ -16,7 +16,8 @@ public static class CategoriaExtensions
             categoria.Id,
             categoria.Titulo,
             categoria.Despesas.Count,
-            categoria.CalcularValorTotalDespesas()
+            categoria.CalcularValorTotalDespesas(),
+            categoria.Despesas.Select(d => d.ParaDetalhesVM()).ToList()
         );
     }
 
