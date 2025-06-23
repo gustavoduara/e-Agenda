@@ -17,12 +17,13 @@ namespace e_Agenda.WebApp.Extensions
                    ContatoSelecionado = f;
                 }
             }
-            return new Compromisso(formularioVM.Assunto, formularioVM.DataOcorrencia, formularioVM.HoraInicio, formularioVM.HoraTermino, formularioVM.TipoCompromisso,formularioVM.Local, formularioVM.Link, ContatoSelecionado);
+            return new Compromisso(formularioVM.Titulo, formularioVM.Assunto, formularioVM.DataOcorrencia, formularioVM.HoraInicio, formularioVM.HoraTermino, formularioVM.TipoCompromisso,formularioVM.Local, formularioVM.Link, ContatoSelecionado);
         }
         public static DetalhesCompromissoViewModel ParaDetalheVM(this Compromisso compromisso)
         {
             return new DetalhesCompromissoViewModel(
                     compromisso.Id,
+                    compromisso.Titulo, 
                     compromisso.Assunto,
                     compromisso.DataOcorrencia,
                     compromisso.HoraInicio,
@@ -32,6 +33,35 @@ namespace e_Agenda.WebApp.Extensions
                     compromisso.Link,
                     compromisso.Contato.Id
             );
+        }
+
+        public static List<SelecionarContatoViewModel> ParaSelecionarContatoViewModel(this List<Contato> contatos)
+        {
+            List<SelecionarContatoViewModel> contatosVM = new List<SelecionarContatoViewModel>();
+            foreach (Contato contato in contatos)
+            {
+                var contatoVM = new SelecionarContatoViewModel(contato.Id, contato.Nome);
+                contatosVM.Add(contatoVM);
+            }
+            return contatosVM;
+        }
+
+
+        public static EditarCompromissoViewModel ParaEditarVM(this Compromisso compromisso)
+        {
+            return new EditarCompromissoViewModel
+                (
+                    compromisso.Id,
+                    compromisso.Titulo,
+                    compromisso.Assunto,
+                    compromisso.DataOcorrencia,
+                    compromisso.HoraInicio,
+                    compromisso.HoraTermino,
+                    compromisso.TipoCompromisso,
+                    compromisso.Local,
+                    compromisso.Link,
+                    compromisso.Contato.Id
+                );
         }
     }
 }

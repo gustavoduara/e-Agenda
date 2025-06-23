@@ -22,7 +22,8 @@
             <div class="card border-0 bg-dark text-white">
                 <div class="card-body">
                     <h4 class="card-title">Compromissos:</h4>
-                    <h5>@item.DataOcorrencia</h5>
+                    <h5>@item.Titulo </h5>
+                    <h5>Dia: @item.DataOcorrencia.ToString("dd/MM/yyyy")</h5>
                     <span class="d-flex gap-1 justify-content-end mt-4">
                         <a href="/compromissos/detalhes/@item.Id" class="btn btn-light rounded-circle opcao-card">
                             <i class="bi bi-search"></i>

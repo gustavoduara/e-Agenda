@@ -18,6 +18,12 @@
 
 
 					<div class="form-group d-grid gap-2">
+						<label asp-for="Titulo" class="control-label fs-5">Titulo:</label>
+						<input asp-for="Titulo" class="form-control" type="text" value="@Model.Titulo" />
+						<span asp-validation-for="Titulo" class="text-danger"></span>
+					</div>
+
+					<div class="form-group d-grid gap-2">
 						<label asp-for="Assunto" class="control-label fs-5">Assunto:</label>
 						<input asp-for="Assunto" class="form-control" type="text" value="@Model.Assunto" />
 						<span asp-validation-for="Assunto" class="text-danger"></span>
@@ -31,19 +37,23 @@
 
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="HoraInicio" class="control-label fs-5">Hora de Início:</label>
-						<input asp-for="HoraInicio" class="form-control" type="time" value="@Model.HoraInicio.ToString("HH\\:mm")" />
+						<input asp-for="HoraInicio" class="form-control" type="time" value="@Model.HoraInicio" />
 						<span asp-validation-for="HoraInicio" class="text-danger"></span>
 					</div>
 
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="HoraTermino" class="control-label fs-5">Hora de Término:</label>
-						<input asp-for="HoraTermino" class="form-control" type="time" value="@Model.HoraTermino.ToString("HH\\:mm")" />
+						<input asp-for="HoraTermino" class="form-control" type="time" value="@Model.HoraTermino" />
 						<span asp-validation-for="HoraTermino" class="text-danger"></span>
 					</div>
 
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="TipoCompromisso" class="control-label fs-5">Tipo de Compromisso:</label>
-						<input asp-for="TipoCompromisso" class="form-control" type="text" value="@Model.TipoCompromisso" />
+						<select asp-for="TipoCompromisso" class="form-select">
+							<option value="">Selecione</option>
+							<option value="Presencial">Presencial</option>
+							<option value="Online">Online</option>
+						</select>
 						<span asp-validation-for="TipoCompromisso" class="text-danger"></span>
 					</div>
 
@@ -62,9 +72,7 @@
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
 
-						<select class="contatos" name="ContatoId" id="ContatoId">
-
-							<
+						<select asp-for="ContatoId" name="ContatoId" id="ContatoId">
 							@foreach (var contato in Model.ContatosDisponiveis)
 							{
 								<option value="@contato.Id"> @contato.Nome </option>
