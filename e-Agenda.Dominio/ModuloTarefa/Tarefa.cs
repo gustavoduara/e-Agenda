@@ -1,65 +1,114 @@
 ﻿using e_Agenda.Dominio.Compartilhado;
+using e_Agenda.Dominio.ModuloTarefa;
 
 namespace e_Agenda.Dominio.ModuloTarefas;
 
 public class Tarefa : EntidadeBase<Tarefa>
 {
     public string Titulo { get; set; }
-    public string Prioridade { get; set; }
+    public PrioridadeTarefa Prioridade { get; set; }
     public DateTime DataCriacao { get; set; }
     public DateTime? DataConclusao { get; set; }
-    public bool Concluida => PercentualConcluido == 100;
-    public int PercentualConcluido { get; private set; }
+    public bool Concluida { get; set; }
 
     public List<ItemTarefa> Itens { get; set; }
+
+    public decimal PercentualConcluido
+    {
+        get
+        {
+            if (Itens.Count == 0)
+                return default;
+
+            int qtdConcluidos = 0;
+
+            foreach (var item in Itens)
+            {
+                if (item.Concluido)
+                    qtdConcluidos++;
+            }
+
+            decimal percentualBase = qtdConcluidos / (decimal)Itens.Count * 100;
+
+            return Math.Round(percentualBase, 2);
+        }
+    }
 
     public Tarefa()
     {
         Itens = new List<ItemTarefa>();
-        DataCriacao = DateTime.Now;
     }
 
-    public Tarefa(string titulo, string prioridade) : this()
+    public Tarefa(string titulo, PrioridadeTarefa prioridade) : this()
     {
         Id = Guid.NewGuid();
         Titulo = titulo;
         Prioridade = prioridade;
+        Concluida = false;
+        DataCriacao = DateTime.Now;
     }
-
-    public void AdicionarItem(ItemTarefa item)
+    public void Concluir()
     {
-        Itens.Add(item);
-        AtualizarPercentual();
+        Concluida = true;
+        DataConclusao = DateTime.Now;
     }
-
-    public void RemoverItem(ItemTarefa item)
+    public void MarcarPendente()
     {
-        Itens.Remove(item);
-        AtualizarPercentual();
+        Concluida = false;
+        DataConclusao = null;
     }
-
-    public void AtualizarPercentual()
+    public ItemTarefa? ObterItem(Guid idItem)
     {
-        if (Itens.Count == 0)
+        foreach (var i in Itens)
         {
-            PercentualConcluido = 0;
-            return;
+            if (idItem.Equals(i.Id))
+                return i;
         }
 
-        var totalConcluidos = Itens.Count(i => i.Concluido);
-        PercentualConcluido = (int)((double)totalConcluidos / Itens.Count * 100);
+        return null;
+    }
 
-        if (PercentualConcluido == 100)
-            DataConclusao = DateTime.Now;
-        else
-            DataConclusao = null;
+    public bool AdicionarItem(string titulo)
+    {
+        var item = new ItemTarefa(titulo);
+
+        foreach (var i in Itens)
+        {
+            if (item.Id == i.Id)
+                return false;
+        }
+
+        Itens.Add(item);
+
+        MarcarPendente();
+
+        return true;
+    }
+
+    public bool RemoverItem(ItemTarefa item)
+    {
+        Itens.Remove(item);
+
+        MarcarPendente();
+
+        return true;
+    }
+
+    public void ConcluirItem(ItemTarefa item)
+    {
+        item.Concluir();
+    }
+
+    public void MarcarItemPendente(ItemTarefa item)
+    {
+        item.MarcarPendente();
+
+        MarcarPendente();
     }
 
     public override void AtualizarRegistro(Tarefa registroEditado)
     {
         Titulo = registroEditado.Titulo;
         Prioridade = registroEditado.Prioridade;
-        AtualizarPercentual();
     }
-
 }

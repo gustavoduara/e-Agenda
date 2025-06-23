@@ -4,11 +4,11 @@ public class ItemTarefa
 {
     public Guid Id { get; set; }
     public string Titulo { get; set; }
-    public bool Concluido { get; private set; }
+    public bool Concluido { get; set; }
 
     public ItemTarefa(string titulo)
     {
-
+        Id = Guid.NewGuid();
         Titulo = titulo;
         Concluido = false;
     }
@@ -18,7 +18,7 @@ public class ItemTarefa
         Concluido = true;
     }
 
-    public void Reabrir()
+    public void MarcarPendente()
     {
         Concluido = false;
     }
