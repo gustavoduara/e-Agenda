@@ -17,7 +17,10 @@
 
 					@if (ViewData.ModelState["Cadastro Unico"]?.Errors.Count > 0)
 					{
-						
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							@ViewData.ModelState["Cadastro Unico"]!.Errors.First().ErrorMessage
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
 					}
 					<div class="form-group d-grid gap-2">
 						<label asp-for="Nome" class="control-label fs-5">Nome: </label>
