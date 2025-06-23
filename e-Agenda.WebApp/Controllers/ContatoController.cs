@@ -5,6 +5,7 @@ using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.Infraestrura.Arquivos.ModuloContato;
 using e_Agenda.WebApp.Models;
+using Microsoft.Win32;
 
 namespace e_Agenda.WebApp.Controllers
 {
@@ -48,7 +49,7 @@ namespace e_Agenda.WebApp.Controllers
             {
                 if (item.Telefone == cadastrarVM.Telefone)
                 {
-                    ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse email");
+                    ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse telefone");
                     break;
                 }
 
@@ -77,13 +78,35 @@ namespace e_Agenda.WebApp.Controllers
             var registroSelecionado = repositorioContato.SelecionarRegistroPorId(id);
             var editarVM = new EditarContatoViewModel(id, registroSelecionado.Nome, registroSelecionado.Email,registroSelecionado.Telefone, registroSelecionado.Cargo, registroSelecionado.Empresa);
 
-            return View(editarVM);
+             return View(editarVM);
         }
 
 
         [HttpPost("editar/{id:guid}")]
         public IActionResult Editar(Guid id, EditarContatoViewModel editarVM)
         {
+            var registros = repositorioContato.SelecionarRegistros();
+
+            foreach (var item in registros)
+            {
+                if (item.Id != id && item.Telefone == editarVM.Telefone)
+                {
+                    ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse telefone");
+                    break;
+                }
+
+
+                if (item.Id != id && item.Email == editarVM.Email)
+                {
+                    ModelState.AddModelError(nameof(editarVM.Email), "Já existe um contato cadastrado com esse email.");
+                    break;
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(editarVM);
+            }
             var entidadeEditada = editarVM.ParaEntidade();
 
             repositorioContato.EditarRegistro(id, entidadeEditada);
