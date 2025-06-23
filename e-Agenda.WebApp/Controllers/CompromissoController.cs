@@ -73,7 +73,7 @@ namespace e_Agenda.WebApp.Controllers
         }
 
         [HttpPost("editar/{Id:guid}")]
-        public IActionResult EditarMedicamento([FromRoute] Guid id, EditarCompromissoViewModel editarVM)
+        public IActionResult Editar([FromRoute] Guid id, EditarCompromissoViewModel editarVM)
         {
 
             var contextoDados = new ContextoDados(true);
@@ -84,7 +84,23 @@ namespace e_Agenda.WebApp.Controllers
             repositorioCompromisso.EditarRegistro(id, compromisso);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet("excluir/{id:guid}")]
+        public ActionResult Excluir(Guid id)
+        {
+            var registroSelecionado = repositorioCompromisso.SelecionarRegistroPorId(id);
 
+            var excluirVM = new ExcluirCompromissoViewModel(registroSelecionado.Id, registroSelecionado.Titulo);
+
+            return View(excluirVM);
+        }
+
+        [HttpPost("excluir/{id:guid}")]
+        public ActionResult ExcluirConfirmado (Guid id)
+        {
+            repositorioCompromisso.ExcluirRegistro(id);
+
+            return RedirectToAction(nameof(Index));
+        }
         [HttpGet("detalhes/{id:guid}")]
         public ActionResult Detalhes(Guid id)
         {

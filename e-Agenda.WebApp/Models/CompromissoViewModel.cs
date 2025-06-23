@@ -89,6 +89,18 @@ namespace e_Agenda.ConsoleApp.Models
         }
     }
 
+    public class ExcluirCompromissoViewModel
+    {
+        public Guid Id { get; set; }
+        public string Titulo { get; set; }
+
+        public ExcluirCompromissoViewModel(Guid id, string titulo)
+        {
+            Id = id;
+            Titulo = titulo;
+        }
+    }
+
     public class DetalhesCompromissoViewModel
     {
             public Guid Id { get; set; }

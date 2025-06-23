@@ -46,7 +46,6 @@
 						<input asp-for="HoraTermino" class="form-control" type="time" value="@Model.HoraTermino" />
 						<span asp-validation-for="HoraTermino" class="text-danger"></span>
 					</div>
-
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="TipoCompromisso" class="control-label fs-5">Tipo de Compromisso:</label>
 						<select asp-for="TipoCompromisso" class="form-select">
@@ -68,17 +67,16 @@
 						<input asp-for="Link" class="form-control" type="text" value="@Model.Link" />
 						<span asp-validation-for="Link" class="text-danger"></span>
 					</div>
-
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
-
-						<select asp-for="ContatoId" name="ContatoId" id="ContatoId">
+						<select asp-for="ContatoId" name="ContatoId" id="ContatoId" class="form-select">
 							@foreach (var contato in Model.ContatosDisponiveis)
 							{
-								<option value="@contato.Id"> @contato.Nome </option>
+								<option value="@contato.Id">@contato.Nome</option>
 							}
 						</select>
 					</div>
+
 
 					<div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
 						<a class="text-light" href="/compromissos">Voltar</a>
