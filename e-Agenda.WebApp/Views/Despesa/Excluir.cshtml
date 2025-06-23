@@ -48,8 +48,7 @@
                     </div>
                 }
 
-                <form asp-action="ExcluirConfirmado" method="post">
-                    <input asp-for="Id" type="hidden" />
+                <form action="/despesas/excluir/@Model.Id" method="post">
                     <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
                         <a class="text-white" href="/despesas">Voltar para a listagem</a>
                         <button type="submit" class="btn btn-light px-5">Confirmar</button>
