@@ -1,75 +1,45 @@
 @model ExcluirCategoriaViewModel
 
 @{
-    ViewData["Title"] = "Excluir Categoria";
+    Layout = "_Layout";
+    ViewBag.Titulo = "Exclusão de Categoria";
 }
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-danger text-white">
-                    <h3><i class="bi bi-exclamation-triangle"></i> Excluir Categoria</h3>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-warning">
-                        <strong>Atenção!</strong> Esta ação não pode ser desfeita.
+<hr />
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card bg-dark text-white rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <h3>Formulário de Exclusão</h3>
+
+                @if (Model.QuantidadeDespesas > 0)
+                {
+                    <div class="alert alert-danger mt-4">
+                        <strong>Não é possível excluir esta categoria!</strong><br>
+                        Esta categoria possui @Model.QuantidadeDespesas despesa(s) vinculada(s). 
+                        Para excluir esta categoria, primeiro remova ou altere a categoria das despesas relacionadas.
                     </div>
+                    
+                    <p class="mt-4">Categoria: "<strong>@Model.Titulo</strong>"</p>
+                    <p>Quantidade de Despesas: <strong>@Model.QuantidadeDespesas</strong></p>
 
-                    <p>Tem certeza que deseja excluir a categoria abaixo?</p>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><strong>Título:</strong></td>
-                                <td>@Model.Titulo</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Quantidade de Despesas:</strong></td>
-                                <td>
-                                    @Model.QuantidadeDespesas
-                                    @if (Model.QuantidadeDespesas > 0)
-                                    {
-                                        <span class="badge bg-warning ms-2">
-                                            <i class="bi bi-exclamation-triangle"></i> Possui despesas vinculadas
-                                        </span>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3">
+                        <a class="text-white" href="/categorias">Voltar para a listagem</a>
                     </div>
+                }
+                else
+                {
+                    <p class="mt-4">Você deseja realmente excluir a categoria "<strong>@Model.Titulo</strong>"?</p>
 
-                    @if (Model.QuantidadeDespesas > 0)
-                    {
-                        <div class="alert alert-danger">
-                            <i class="bi bi-x-circle"></i> 
-                            <strong>Não é possível excluir esta categoria!</strong><br>
-                            Esta categoria possui @Model.QuantidadeDespesas despesa(s) vinculada(s). 
-                            Para excluir esta categoria, primeiro remova ou altere a categoria das despesas relacionadas.
+                    <form asp-action="ExcluirConfirmado" method="post">
+                        <input asp-for="Id" type="hidden" />
+                        <div class="form-group d-flex align-items-center justify-content-end gap-3">
+                            <a class="text-white" href="/categorias">Voltar para a listagem</a>
+                            <button type="submit" class="btn btn-light px-5">Confirmar</button>
                         </div>
-                        
-                        <div class="d-grid">
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left"></i> Voltar
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
-                        <form asp-action="ExcluirConfirmado" method="post">
-                            <input asp-for="Id" type="hidden" />
-                            
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a asp-action="Index" class="btn btn-outline-secondary me-md-2">
-                                    <i class="bi bi-arrow-left"></i> Cancelar
-                                </a>
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="bi bi-trash"></i> Confirmar Exclusão
-                                </button>
-                            </div>
-                        </form>
-                    }
-                </div>
+                    </form>
+                }
             </div>
         </div>
     </div>

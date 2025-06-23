@@ -114,6 +114,19 @@ public class DespesaController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpGet("detalhes/{id:guid}")]
+    public IActionResult Detalhes(Guid id)
+    {
+        var registroSelecionado = repositorioDespesa.SelecionarRegistroPorId(id);
+
+        if (registroSelecionado == null)
+            return NotFound();
+
+        var detalhesVM = registroSelecionado.ParaDetalhesVM();
+
+        return View(detalhesVM);
+    }
+
     [HttpGet("excluir/{id:guid}")]
     public IActionResult Excluir(Guid id)
     {

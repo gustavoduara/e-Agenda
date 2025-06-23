@@ -1,8 +1,8 @@
-@model ExcluirDespesaViewModel
+@model DetalhesDespesaViewModel
 
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Exclusão de Despesa";
+    ViewBag.Titulo = "Detalhes da Despesa";
 }
 
 <hr />
@@ -11,9 +11,12 @@
     <div class="col-md-8">
         <div class="card bg-dark text-white rounded-4 border-0">
             <div class="card-body p-md-5">
-                <h3>Formulário de Exclusão</h3>
+                <h3>Detalhes</h3>
 
-                <p class="mt-4">Você deseja realmente excluir a despesa "<strong>@Model.Descricao</strong>"?</p>
+                <div class="form-group d-grid gap-2 mt-3">
+                    <label for="Id" class="control-label fs-5">Id:</label>
+                    <input name="Id" class="form-control" value="@Model.Id" readonly disabled />
+                </div>
 
                 <div class="form-group d-grid gap-2 mt-3">
                     <label for="Descricao" class="control-label fs-5">Descrição:</label>
@@ -47,14 +50,17 @@
                         </div>
                     </div>
                 }
-
-                <form asp-action="ExcluirConfirmado" method="post">
-                    <input asp-for="Id" type="hidden" />
-                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
-                        <a class="text-white" href="/despesas">Voltar para a listagem</a>
-                        <button type="submit" class="btn btn-light px-5">Confirmar</button>
+                else
+                {
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label for="Categorias" class="control-label fs-5">Categorias:</label>
+                        <input name="Categorias" class="form-control" type="text" value="Nenhuma categoria" readonly disabled />
                     </div>
-                </form>
+                }
+
+                <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+                    <a class="text-white" href="/despesas">Voltar para a listagem</a>
+                </div>
             </div>
         </div>
     </div>
