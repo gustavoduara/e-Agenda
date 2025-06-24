@@ -16,6 +16,13 @@
 				<form asp-action="Cadastrar" method="post">
 					<h3>Formulário de Cadastro</h3>
 
+					@if (ViewData.ModelState["Cadastro Unico"]?.Errors.Count > 0)
+					{
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							@ViewData.ModelState["Cadastro Unico"]!.Errors.First().ErrorMessage
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					}
 
 					<div class="form-group d-grid gap-2">
 						<label asp-for="Titulo" class="control-label fs-5">Titulo:</label>
@@ -31,7 +38,7 @@
 
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="DataOcorrencia" class="control-label fs-5">Data:</label>
-						<input asp-for="DataOcorrencia" class="form-control" type="date" value="@Model.DataOcorrencia.ToString("yyyy-MM-dd")" />
+						<input asp-for="DataOcorrencia" class="form-control" type="date"  />
 						<span asp-validation-for="DataOcorrencia" class="text-danger"></span>
 					</div>
 
@@ -70,6 +77,7 @@
 					<div class="form-group d-grid gap-2 mt-3">
 						<label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
 						<select asp-for="ContatoId" name="ContatoId" id="ContatoId" class="form-select">
+							<option value="nulo">Sem contato</option>
 							@foreach (var contato in Model.ContatosDisponiveis)
 							{
 								<option value="@contato.Id">@contato.Nome</option>
@@ -88,3 +96,7 @@
 		</div>
 	</div>
 </div>
+@section Scripts
+{
+	<partial name="_ValidationScriptsPartial" />
+}

@@ -33,6 +33,20 @@ namespace e_Agenda.Dominio.ModuloCompromisso
             Contato = contato;
         }
 
+        public Compromisso(string titulo, string assunto, DateTime dataOcorrencia, string horaInicio, string horaTermino, string tipoCompromisso, string local, string link) : this()
+        {
+            Id = Guid.NewGuid();
+            Titulo = titulo;
+            Assunto = assunto;
+            DataOcorrencia = dataOcorrencia;
+            HoraInicio = horaInicio;
+            HoraTermino = horaTermino;
+            TipoCompromisso = tipoCompromisso;
+            Local = local;
+            Link = link;
+        }
+
+
         public override void AtualizarRegistro(Compromisso registroEditado)
         {
             Titulo = registroEditado.Titulo;

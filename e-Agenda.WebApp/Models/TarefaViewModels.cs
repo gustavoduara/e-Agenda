@@ -59,9 +59,9 @@ namespace e_Agenda.WebApp.Models
     {
         public List<DetalhesTarefaViewModel> Registros { get; set; }
 
-        public VisualizarTarefasViewModel(List<Tarefa> tarefas)
-        {
-            Registros = new List<DetalhesTarefaViewModel>();
+//        public VisualizarTarefasViewModel(List<Tarefa> tarefas)
+//        {
+//            Registros = new List<DetalhesTarefaViewModel>();
 
             foreach (var t in tarefas)
                 Registros.Add(t.ParaDetalhesVM());

@@ -73,7 +73,7 @@
                     <div class="form-group d-grid gap-2 mt-3">
                         <label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
 
-                        <select asp-for="ContatoId" name="ContatoId" id="ContatoId">
+                        <select asp-for="ContatoId" name="ContatoId" id="ContatoId" class="form-select">
 
                             @foreach (var contato in Model.ContatosDisponiveis)
                             {
