@@ -8,7 +8,6 @@ namespace e_Agenda.ConsoleApp.Models
 {
     public abstract class FormularioCompromissoViewModel
     {
-        public Guid Id;
 
         [Required(ErrorMessage = "O Campo titulo é obrigatório")]
         [MinLength(3, ErrorMessage = "O Campo titulo deve conter ao minimo 3 caracteres")]
@@ -30,7 +29,7 @@ namespace e_Agenda.ConsoleApp.Models
         public string TipoCompromisso { get; set; }
         public string Local { get; set; }
         public string Link { get; set; }
-        public Guid ContatoId { get; set; }
+        public Guid? ContatoId { get; set; }
 
         public List<SelecionarContatoViewModel> ContatosDisponiveis { get; set; }
 
