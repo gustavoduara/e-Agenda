@@ -53,30 +53,34 @@ namespace e_Agenda.WebApp.Controllers
 
                 var compromissos = repositorioCompromisso.SelecionarRegistros();
 
-                foreach(var item in compromissos)
+            foreach (var item in compromissos)
+            {
+                if (item.DataOcorrencia == cadastrarVM.DataOcorrencia && item.HoraInicio == cadastrarVM.HoraInicio)
                 {
-                      if(item.DataOcorrencia == cadastrarVM.DataOcorrencia && item.HoraInicio == cadastrarVM.HoraInicio)
-                    {
-                        ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
-                        return View(cadastrarVM);
-                    }
-
-                TimeSpan horaInicio = TimeSpan.ParseExact(item.HoraInicio, @"hh\:mm", null);
-                TimeSpan horaTermino = TimeSpan.ParseExact(item.HoraTermino, @"hh\:mm", null);
+                    ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
+                    break;
+                }
+             }
+                TimeSpan horaInicio = TimeSpan.ParseExact(cadastrarVM.HoraInicio, @"hh\:mm", null);
+                TimeSpan horaTermino = TimeSpan.ParseExact(cadastrarVM.HoraTermino, @"hh\:mm", null);
 
                 if(horaTermino < horaInicio )
                 {
-                    ModelState.AddModelError("Cadastro Unico", "A hora de término não pode ser anterior à hora de início");
+                    ModelState.AddModelError(nameof(cadastrarVM.HoraTermino), "A hora de término não pode ser anterior à hora de início.");
                     return View(cadastrarVM);
                 }
 
 
-                if(item.DataOcorrencia < DateTime.Today)
+                if(cadastrarVM.DataOcorrencia < DateTime.Now)
                 {
-                    ModelState.AddModelError("Cadastro Unico", "O compromisso não pode ser em uma data inferior ao dia de hoje");
+                    ModelState.AddModelError(nameof(cadastrarVM.DataOcorrencia), "A data nao pode ser menor que a data atual");
+                }
+
+                if (!ModelState.IsValid)
+                {
                     return View(cadastrarVM);
                 }
-            }
+            
 
              
 
