@@ -52,47 +52,54 @@ namespace e_Agenda.WebApp.Controllers
             {
 
                 var compromissos = repositorioCompromisso.SelecionarRegistros();
-
-            foreach (var item in compromissos)
-            {
-                if (item.DataOcorrencia == cadastrarVM.DataOcorrencia && item.HoraInicio == cadastrarVM.HoraInicio)
+          
+                foreach (var item in compromissos)
                 {
-                    ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
-                    break;
+                    if (item.DataOcorrencia == cadastrarVM.DataOcorrencia && item.HoraInicio == cadastrarVM.HoraInicio)
+                    {
+                        ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
+                        break;
+                    }
                 }
-             }
                 TimeSpan horaInicio = TimeSpan.ParseExact(cadastrarVM.HoraInicio, @"hh\:mm", null);
                 TimeSpan horaTermino = TimeSpan.ParseExact(cadastrarVM.HoraTermino, @"hh\:mm", null);
 
-                if(horaTermino < horaInicio )
+                if (horaTermino < horaInicio)
                 {
-                    ModelState.AddModelError(nameof(cadastrarVM.HoraTermino), "A hora de término não pode ser anterior à hora de início.");
-                    return View(cadastrarVM);
+                    ModelState.AddModelError("Cadastro Unico", "A hora de término não pode ser anterior à hora de início.");
+                }
+                    
+
+                if (cadastrarVM.DataOcorrencia < DateTime.Now.Date)
+                {
+                    ModelState.AddModelError("Cadastro Unico", "A data de ocorrencia nao pode ser menor que a data atual");
                 }
 
-
-                if(cadastrarVM.DataOcorrencia < DateTime.Now)
+                if (cadastrarVM.TipoCompromisso == "Presencial" && !string.IsNullOrEmpty(cadastrarVM.Link))
                 {
-                    ModelState.AddModelError(nameof(cadastrarVM.DataOcorrencia), "A data nao pode ser menor que a data atual");
+                    ModelState.AddModelError("Cadastro Unico", "Compromissos presenciais não devem ter link");
+                }
+
+                if (cadastrarVM.TipoCompromisso == "Online" && !string.IsNullOrEmpty(cadastrarVM.Local))
+                {
+                    ModelState.AddModelError("Cadastro Unico", "Compromissos online não devem ter local");
                 }
 
                 if (!ModelState.IsValid)
                 {
+                    cadastrarVM.ContatosDisponiveis = repositorioContato.SelecionarRegistros().ParaSelecionarContatoViewModel();
                     return View(cadastrarVM);
                 }
+
             
+            var entidade = cadastrarVM.ParaEntidade(repositorioContato.SelecionarRegistros());
 
-             
+            repositorioCompromisso.CadastrarRegistro(entidade);
 
-            var contatos = repositorioContato.SelecionarRegistros();
+            return RedirectToAction(nameof(Index));
 
-                Compromisso  compromisso = cadastrarVM.ParaEntidade(contatos);
-
-                repositorioCompromisso.CadastrarRegistro(compromisso);
-                return RedirectToAction(nameof(Index));
-
-            }
-
+        }
+            
         [HttpGet("editar/{Id:guid}")]
         public IActionResult Editar([FromRoute] Guid id)
         {

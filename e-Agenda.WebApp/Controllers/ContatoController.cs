@@ -44,26 +44,28 @@ namespace e_Agenda.WebApp.Controllers
         {
             var registros = repositorioContato.SelecionarRegistros();
 
-            foreach(var item in registros)
-            {
-                if (item.Telefone == cadastrarVM.Telefone)
+            
+                foreach (var item in registros)
                 {
-                    ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse telefone");
-                    break;
+                    if (item.Telefone == cadastrarVM.Telefone)
+                    {
+                        ModelState.AddModelError("Cadastro Unico", "Já existe um contato cadastrado com esse telefone");
+                        break;
+                    }
+
+
+                    if (item.Email == cadastrarVM.Email)
+                    {
+                        ModelState.AddModelError(nameof(cadastrarVM.Email), "Já existe um contato cadastrado com esse email.");
+                        break;
+                    }
                 }
 
-
-                if (item.Email == cadastrarVM.Email)
+                if (!ModelState.IsValid)
                 {
-                    ModelState.AddModelError(nameof(cadastrarVM.Email), "Já existe um contato cadastrado com esse email.");
-                    break;
+                    return View(cadastrarVM);
                 }
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(cadastrarVM);
-            }
+            
             var entidade = cadastrarVM.ParaEntidade();
 
             repositorioContato.CadastrarRegistro(entidade);

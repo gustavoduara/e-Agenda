@@ -20,7 +20,6 @@ namespace e_Agenda.ConsoleApp.Models
         [MaxLength(100, ErrorMessage = "O Campo assunto deve conter ao maximo 100 caracteres")]
         public string Assunto { get; set; }
 
-        [Required(ErrorMessage = "O Campo Data é obrigatório")]
         public DateTime DataOcorrencia { get; set; }
 
         [Required(ErrorMessage = "O Campo Hora de Inico é obrigatório")]
