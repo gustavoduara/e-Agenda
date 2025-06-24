@@ -50,6 +50,7 @@ namespace e_Agenda.WebApp.Controllers
             [HttpPost("cadastrar")]
             public IActionResult Cadastrar(CadastrarCompromissoViewModel cadastrarVM)
             {
+
                 var compromissos = repositorioCompromisso.SelecionarRegistros();
 
                 foreach(var item in compromissos)
@@ -59,7 +60,23 @@ namespace e_Agenda.WebApp.Controllers
                         ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
                         return View(cadastrarVM);
                     }
+
+                TimeSpan horaInicio = TimeSpan.ParseExact(item.HoraInicio, @"hh\:mm", null);
+                TimeSpan horaTermino = TimeSpan.ParseExact(item.HoraTermino, @"hh\:mm", null);
+
+                if(horaTermino < horaInicio )
+                {
+                    ModelState.AddModelError("Cadastro Unico", "A hora de término não pode ser anterior à hora de início");
+                    return View(cadastrarVM);
                 }
+
+
+                if(item.DataOcorrencia < DateTime.Today)
+                {
+                    ModelState.AddModelError("Cadastro Unico", "O compromisso não pode ser em uma data inferior ao dia de hoje");
+                    return View(cadastrarVM);
+                }
+            }
 
              
 

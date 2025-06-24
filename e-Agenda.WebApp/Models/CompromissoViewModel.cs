@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 using e_Agenda.Dominio.ModuloCompromisso;
 using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.WebApp.Extensions;
@@ -8,10 +9,24 @@ namespace e_Agenda.ConsoleApp.Models
     public abstract class FormularioCompromissoViewModel
     {
         public Guid Id;
+
+        [Required(ErrorMessage = "O Campo titulo é obrigatório")]
+        [MinLength(3, ErrorMessage = "O Campo titulo deve conter ao minimo 3 caracteres")]
+        [MaxLength(100, ErrorMessage = "O Campo titulo deve conter ao maximo 100 caracteres")]
         public string Titulo { get; set; }
+
+        [Required(ErrorMessage = "O Campo assunto é obrigatório")]
+        [MinLength(3, ErrorMessage = "O Campo assunto deve conter ao minimo 3 caracteres")]
+        [MaxLength(100, ErrorMessage = "O Campo assunto deve conter ao maximo 100 caracteres")]
         public string Assunto { get; set; }
+
+        [Required(ErrorMessage = "O Campo Data é obrigatório")]
         public DateTime DataOcorrencia { get; set; }
+
+        [Required(ErrorMessage = "O Campo Hora de Inico é obrigatório")]
         public string HoraInicio { get; set; }
+
+        [Required(ErrorMessage = "O Campo Hora de Termino é obrigatório")]
         public string HoraTermino { get; set; }
         public string TipoCompromisso { get; set; }
         public string Local { get; set; }
