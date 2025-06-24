@@ -8,7 +8,6 @@ namespace e_Agenda.ConsoleApp.Models
 {
     public abstract class FormularioCompromissoViewModel
     {
-        public Guid Id;
 
         [Required(ErrorMessage = "O Campo titulo é obrigatório")]
         [MinLength(3, ErrorMessage = "O Campo titulo deve conter ao minimo 3 caracteres")]
@@ -20,7 +19,6 @@ namespace e_Agenda.ConsoleApp.Models
         [MaxLength(100, ErrorMessage = "O Campo assunto deve conter ao maximo 100 caracteres")]
         public string Assunto { get; set; }
 
-        [Required(ErrorMessage = "O Campo Data é obrigatório")]
         public DateTime DataOcorrencia { get; set; }
 
         [Required(ErrorMessage = "O Campo Hora de Inico é obrigatório")]
@@ -31,7 +29,7 @@ namespace e_Agenda.ConsoleApp.Models
         public string TipoCompromisso { get; set; }
         public string Local { get; set; }
         public string Link { get; set; }
-        public Guid ContatoId { get; set; }
+        public Guid? ContatoId { get; set; }
 
         public List<SelecionarContatoViewModel> ContatosDisponiveis { get; set; }
 

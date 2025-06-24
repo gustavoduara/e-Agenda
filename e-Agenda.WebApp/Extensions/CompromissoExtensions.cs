@@ -22,34 +22,37 @@ namespace e_Agenda.WebApp.Extensions
         public static DetalhesCompromissoViewModel ParaDetalheVM(this Compromisso compromisso)
         {
 
-            if (compromisso.Contato !=  null)
+            if (compromisso.Contato != null)
             {
-                return new DetalhesCompromissoViewModel(
-                        compromisso.Id,
-                        compromisso.Titulo,
-                        compromisso.Assunto,
-                        compromisso.DataOcorrencia,
-                        compromisso.HoraInicio,
-                        compromisso.HoraTermino,
-                        compromisso.TipoCompromisso,
-                        compromisso.Local,
-                        compromisso.Link,
-                        compromisso.Contato.Id
-                );
+                    return new DetalhesCompromissoViewModel(
+                            compromisso.Id,
+                            compromisso.Titulo,
+                            compromisso.Assunto,
+                            compromisso.DataOcorrencia,
+                            compromisso.HoraInicio,
+                            compromisso.HoraTermino,
+                            compromisso.TipoCompromisso,
+                            compromisso.Local,
+                            compromisso.Link,
+                            compromisso.Contato.Id
+
+                            );
+               
             }
             else
             {
-                return new DetalhesCompromissoViewModel(
-                        compromisso.Id,
-                        compromisso.Titulo,
-                        compromisso.Assunto,
-                        compromisso.DataOcorrencia,
-                        compromisso.HoraInicio,
-                        compromisso.HoraTermino,
-                        compromisso.TipoCompromisso,
-                        compromisso.Local,
-                        compromisso.Link
-                );
+                    return new DetalhesCompromissoViewModel(
+                            compromisso.Id,
+                            compromisso.Titulo,
+                            compromisso.Assunto,
+                            compromisso.DataOcorrencia,
+                            compromisso.HoraInicio,
+                            compromisso.HoraTermino,
+                            compromisso.TipoCompromisso,
+                            compromisso.Local,
+                            compromisso.Link
+                    );
+                
             }
         }
 
