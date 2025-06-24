@@ -51,7 +51,19 @@ namespace e_Agenda.WebApp.Controllers
             public IActionResult Cadastrar(CadastrarCompromissoViewModel cadastrarVM)
             {
                 var compromissos = repositorioCompromisso.SelecionarRegistros();
-                var contatos = repositorioContato.SelecionarRegistros();
+
+                foreach(var item in compromissos)
+                {
+                      if(item.DataOcorrencia == cadastrarVM.DataOcorrencia && item.HoraInicio == cadastrarVM.HoraInicio)
+                    {
+                        ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
+                        return View(cadastrarVM);
+                    }
+                }
+
+             
+
+            var contatos = repositorioContato.SelecionarRegistros();
 
                 Compromisso  compromisso = cadastrarVM.ParaEntidade(contatos);
 
@@ -106,20 +118,42 @@ namespace e_Agenda.WebApp.Controllers
         {
             var registroSelecionado = repositorioCompromisso.SelecionarRegistroPorId(id);
 
-            var detalhesVM = new DetalhesCompromissoViewModel(
-                id,
-                registroSelecionado.Titulo,
-                registroSelecionado.Assunto,
-                registroSelecionado.DataOcorrencia,
-                registroSelecionado.HoraInicio,
-                registroSelecionado.HoraTermino,
-                registroSelecionado.TipoCompromisso,
-                registroSelecionado.Local,
-                registroSelecionado.Link,
-                registroSelecionado.Contato.Id
-            );
+            DetalhesCompromissoViewModel detalhesVM;
+            if (registroSelecionado.Contato != null)
+            {
+                var detalheVM = new DetalhesCompromissoViewModel(
+                    id,
+                    registroSelecionado.Titulo,
+                    registroSelecionado.Assunto,
+                    registroSelecionado.DataOcorrencia,
+                    registroSelecionado.HoraInicio,
+                    registroSelecionado.HoraTermino,
+                    registroSelecionado.TipoCompromisso,
+                    registroSelecionado.Local,
+                    registroSelecionado.Link,
+                    registroSelecionado.Contato.Id
+                );
+                detalhesVM = detalheVM;
+                detalhesVM.NomeContato = registroSelecionado.Contato.Nome;
 
-            detalhesVM.NomeContato = registroSelecionado.Contato.Nome;
+            }
+
+            else
+            {
+                var detalheVM = new DetalhesCompromissoViewModel(
+                    id,
+                    registroSelecionado.Titulo,
+                    registroSelecionado.Assunto,
+                    registroSelecionado.DataOcorrencia,
+                    registroSelecionado.HoraInicio,
+                    registroSelecionado.HoraTermino,
+                    registroSelecionado.TipoCompromisso,
+                    registroSelecionado.Local,
+                    registroSelecionado.Link
+                );
+                detalhesVM = detalheVM;
+            }
+
             return View(detalhesVM);
         }
     }

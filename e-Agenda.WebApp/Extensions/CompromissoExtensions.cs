@@ -21,18 +21,36 @@ namespace e_Agenda.WebApp.Extensions
         }
         public static DetalhesCompromissoViewModel ParaDetalheVM(this Compromisso compromisso)
         {
-            return new DetalhesCompromissoViewModel(
-                    compromisso.Id,
-                    compromisso.Titulo, 
-                    compromisso.Assunto,
-                    compromisso.DataOcorrencia,
-                    compromisso.HoraInicio,
-                    compromisso.HoraTermino,
-                    compromisso.TipoCompromisso,
-                    compromisso.Local,
-                    compromisso.Link,
-                    compromisso.Contato.Id
-            );
+
+            if (compromisso.Contato !=  null)
+            {
+                return new DetalhesCompromissoViewModel(
+                        compromisso.Id,
+                        compromisso.Titulo,
+                        compromisso.Assunto,
+                        compromisso.DataOcorrencia,
+                        compromisso.HoraInicio,
+                        compromisso.HoraTermino,
+                        compromisso.TipoCompromisso,
+                        compromisso.Local,
+                        compromisso.Link,
+                        compromisso.Contato.Id
+                );
+            }
+            else
+            {
+                return new DetalhesCompromissoViewModel(
+                        compromisso.Id,
+                        compromisso.Titulo,
+                        compromisso.Assunto,
+                        compromisso.DataOcorrencia,
+                        compromisso.HoraInicio,
+                        compromisso.HoraTermino,
+                        compromisso.TipoCompromisso,
+                        compromisso.Local,
+                        compromisso.Link
+                );
+            }
         }
 
         public static List<SelecionarContatoViewModel> ParaSelecionarContatoViewModel(this List<Contato> contatos)
@@ -49,19 +67,35 @@ namespace e_Agenda.WebApp.Extensions
 
         public static EditarCompromissoViewModel ParaEditarVM(this Compromisso compromisso)
         {
-            return new EditarCompromissoViewModel
-                (
-                    compromisso.Id,
-                    compromisso.Titulo,
-                    compromisso.Assunto,
-                    compromisso.DataOcorrencia,
-                    compromisso.HoraInicio,
-                    compromisso.HoraTermino,
-                    compromisso.TipoCompromisso,
-                    compromisso.Local,
-                    compromisso.Link,
-                    compromisso.Contato.Id
+            if (compromisso.Contato != null)
+            {
+                return new EditarCompromissoViewModel(
+                        compromisso.Id,
+                        compromisso.Titulo,
+                        compromisso.Assunto,
+                        compromisso.DataOcorrencia,
+                        compromisso.HoraInicio,
+                        compromisso.HoraTermino,
+                        compromisso.TipoCompromisso,
+                        compromisso.Local,
+                        compromisso.Link,
+                        compromisso.Contato.Id
                 );
+            }
+            else
+            {
+                return new EditarCompromissoViewModel(
+                        compromisso.Id,
+                        compromisso.Titulo,
+                        compromisso.Assunto,
+                        compromisso.DataOcorrencia,
+                        compromisso.HoraInicio,
+                        compromisso.HoraTermino,
+                        compromisso.TipoCompromisso,
+                        compromisso.Local,
+                        compromisso.Link
+                );
+            }
         }
     }
 }

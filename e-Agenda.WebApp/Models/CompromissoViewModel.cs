@@ -7,6 +7,7 @@ namespace e_Agenda.ConsoleApp.Models
 {
     public abstract class FormularioCompromissoViewModel
     {
+        public Guid Id;
         public string Titulo { get; set; }
         public string Assunto { get; set; }
         public DateTime DataOcorrencia { get; set; }
@@ -87,6 +88,18 @@ namespace e_Agenda.ConsoleApp.Models
             Link = link;
             ContatoId = contatoId;
         }
+        public EditarCompromissoViewModel(Guid id, string titulo, string assunto, DateTime dataOcorrencia, string horaInicio, string horaTermino, string tipoCompromisso, string local, string link)
+        {
+            Id = id;
+            Titulo = titulo;
+            Assunto = assunto;
+            DataOcorrencia = dataOcorrencia;
+            HoraInicio = horaInicio;
+            HoraTermino = horaTermino;
+            TipoCompromisso = tipoCompromisso;
+            Local = local;
+            Link = link;
+        }
     }
 
     public class ExcluirCompromissoViewModel
@@ -114,7 +127,7 @@ namespace e_Agenda.ConsoleApp.Models
             public string Link { get; set; }
             public Guid ContatoId { get; set; }
             public string NomeContato { get; set; }
-
+        
         public DetalhesCompromissoViewModel(Guid id, string titulo, string assunto, DateTime dataOcorrencia, string horaInicio, string horaTermino, string tipoCompromisso, string local, string link, Guid contatoId)
         {
             Id = id;
@@ -128,6 +141,17 @@ namespace e_Agenda.ConsoleApp.Models
             Link = link;
             ContatoId = contatoId;
         }
-
+        public DetalhesCompromissoViewModel(Guid id, string titulo, string assunto, DateTime dataOcorrencia, string horaInicio, string horaTermino, string tipoCompromisso, string local, string link) 
+        {
+            Id = id;
+            Titulo = titulo;
+            Assunto = assunto;
+            DataOcorrencia = dataOcorrencia;
+            HoraInicio = horaInicio;
+            HoraTermino = horaTermino;
+            TipoCompromisso = tipoCompromisso;
+            Local = local;
+            Link = link;
+        }
     }
 }
