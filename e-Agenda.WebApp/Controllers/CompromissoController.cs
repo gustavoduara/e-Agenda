@@ -68,24 +68,23 @@ namespace e_Agenda.WebApp.Controllers
                 {
                     ModelState.AddModelError("Cadastro Unico", "A hora de término não pode ser anterior à hora de início.");
                 }
-                    
 
                 if (cadastrarVM.DataOcorrencia < DateTime.Now.Date)
                 {
                     ModelState.AddModelError("Cadastro Unico", "A data de ocorrencia nao pode ser menor que a data atual");
                 }
 
-                if (cadastrarVM.TipoCompromisso == "Presencial" && !string.IsNullOrEmpty(cadastrarVM.Link))
-                {
-                    ModelState.AddModelError("Cadastro Unico", "Compromissos presenciais não devem ter link");
-                }
+            if (cadastrarVM.TipoCompromisso == "Online" && string.IsNullOrWhiteSpace(cadastrarVM.Link))
+            {
+                ModelState.AddModelError("Link", "Compromissos online devem ter um link");
+            }
 
-                if (cadastrarVM.TipoCompromisso == "Online" && !string.IsNullOrEmpty(cadastrarVM.Local))
-                {
-                    ModelState.AddModelError("Cadastro Unico", "Compromissos online não devem ter local");
-                }
+            if (cadastrarVM.TipoCompromisso == "Presencial" && string.IsNullOrWhiteSpace(cadastrarVM.Local))
+            {
+                ModelState.AddModelError("Local", "Compromissos presenciais devem ter um local");
+            }
 
-                if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 {
                     cadastrarVM.ContatosDisponiveis = repositorioContato.SelecionarRegistros().ParaSelecionarContatoViewModel();
                     return View(cadastrarVM);

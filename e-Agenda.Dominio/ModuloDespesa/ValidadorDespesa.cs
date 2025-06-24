@@ -24,7 +24,7 @@ public class ValidadorDespesa
             erros.Add("O valor deve ser maior que zero.");
         }
 
-        if (despesa.DataOcorrencia > DateTime.Now)
+        if (despesa.DataOcorrencia > DateTime.Now.Date)
         {
             erros.Add("A data de ocorrência não pode ser uma data futura.");
         }
