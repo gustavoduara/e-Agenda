@@ -107,15 +107,51 @@ namespace e_Agenda.WebApp.Controllers
             var compromisso = repositorioCompromisso.SelecionarRegistroPorId(id);
             EditarCompromissoViewModel editarVM = compromisso.ParaEditarVM();
 
-            var contatos = repositorioContato.SelecionarRegistros();
-            editarVM.ContatosDisponiveis = contatos.ParaSelecionarContatoViewModel();
             return View(editarVM);
         }
 
         [HttpPost("editar/{Id:guid}")]
         public IActionResult Editar([FromRoute] Guid id, EditarCompromissoViewModel editarVM)
         {
+            var compromissos = repositorioCompromisso.SelecionarRegistros();
 
+            foreach (var item in compromissos)
+            {
+                if (item.Id == id && item.DataOcorrencia == editarVM.DataOcorrencia && item.HoraInicio == editarVM.HoraInicio)
+                {
+                    ModelState.AddModelError("Cadastro Unico", "Já existe um compromisso nesse mesmo dia e horario");
+                    break;
+                }
+            }
+            TimeSpan horaInicio = TimeSpan.ParseExact(editarVM.HoraInicio, @"hh\:mm", null);
+            TimeSpan horaTermino = TimeSpan.ParseExact(editarVM.HoraTermino, @"hh\:mm", null);
+
+            if (horaTermino < horaInicio)
+            {
+                ModelState.AddModelError("Cadastro Unico", "A hora de término não pode ser anterior à hora de início.");
+            }
+
+
+            if (editarVM.DataOcorrencia < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("Cadastro Unico", "A data de ocorrencia nao pode ser menor que a data atual");
+            }
+
+            if (editarVM.TipoCompromisso == "Presencial" && !string.IsNullOrEmpty(editarVM.Link))
+            {
+                ModelState.AddModelError("Cadastro Unico", "Compromissos presenciais não devem ter link");
+            }
+
+            if (editarVM.TipoCompromisso == "Online" && !string.IsNullOrEmpty(editarVM.Local))
+            {
+                ModelState.AddModelError("Cadastro Unico", "Compromissos online não devem ter local");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                editarVM.ContatosDisponiveis = repositorioContato.SelecionarRegistros().ParaSelecionarContatoViewModel();
+                return View(editarVM);
+            }
             var contextoDados = new ContextoDados(true);
 
             var contatos = repositorioContato.SelecionarRegistros();
