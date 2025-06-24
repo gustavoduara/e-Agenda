@@ -1,6 +1,8 @@
 ﻿@model VisualizarTarefasViewModel
 
 @{
+    Layout = "_Layout";
+
     ViewBag.Titulo = "Visualização de Tarefas";
 
     var status = Context.Request.Query["status"].ToString();
