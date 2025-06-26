@@ -1,3 +1,4 @@
+using e_Agenda.Dominio.ModuloContato;
 using e_Agenda.Dominio.ModuloTarefa;
 using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Infraestrutura.ModuloTarefa;
@@ -13,8 +14,8 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddScoped<ContextoDados>((_) => new ContextoDados(true));
-
         builder.Services.AddScoped<IRepositorioTarefa, RepositorioTarefa>();
+        builder.Services.AddScoped<IRepositorioContato, IRepositorioContato>();
 
         var app = builder.Build();
 
