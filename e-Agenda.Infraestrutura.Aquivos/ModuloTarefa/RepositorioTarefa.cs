@@ -39,27 +39,19 @@ public class RepositorioTarefa : IRepositorioTarefa
     {
         var registroSelecionado = SelecionarTarefaPorId(idTarefa);
 
-        if (registroSelecionado != null)
-        {
+        if (registroSelecionado is null)
+            return false;
+        
             registros.Remove(registroSelecionado);
 
             contexto.Salvar();
 
             return true;
-        }
-
-        return false;
     }
 
     public Tarefa? SelecionarTarefaPorId(Guid idTarefa)
     {
-        foreach (var t in registros)
-        {
-            if (t.Id == idTarefa)
-                return t;
-        }
-
-        return null;
+        return registros.Find(t => t.Id.Equals(idTarefa));
     }
 
     public List<Tarefa> SelecionarTarefas()
@@ -69,27 +61,11 @@ public class RepositorioTarefa : IRepositorioTarefa
 
     public List<Tarefa> SelecionarTarefasPendentes()
     {
-        var tarefasAtivas = new List<Tarefa>();
-
-        foreach (var item in registros)
-        {
-            if (!item.Concluida)
-                tarefasAtivas.Add(item);
-        }
-
-        return tarefasAtivas;
+        return registros.FindAll(t => !t.Concluida);
     }
 
     public List<Tarefa> SelecionarTarefasConcluidas()
     {
-        var tarefasConcluidas = new List<Tarefa>();
-
-        foreach (var item in registros)
-        {
-            if (item.Concluida)
-                tarefasConcluidas.Add(item);
-        }
-
-        return tarefasConcluidas;
+        return registros.FindAll(t => t.Concluida);
     }
 }
