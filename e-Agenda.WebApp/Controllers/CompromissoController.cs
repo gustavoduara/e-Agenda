@@ -4,10 +4,9 @@ using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Dominio.ModuloCompromisso;
 using e_Agenda.Infraestrutura.Aquivos.ModuloCompromisso;
 using e_Agenda.Dominio.ModuloContato;
-using e_Agenda.Infraestrura.Arquivos.ModuloContato;
 using e_Agenda.ConsoleApp.Models;
 using e_Agenda.WebApp.Extensions;
-using e_Agenda.WebApp.Models;
+using eAgenda.Infraestrutura.ModuloContato;
 
 namespace e_Agenda.WebApp.Controllers
 {
@@ -22,7 +21,7 @@ namespace e_Agenda.WebApp.Controllers
             {
                 contextoDados = new ContextoDados(true);
                 repositorioCompromisso = new RepositorioCompromissoEmArquivo(contextoDados);
-                repositorioContato = new RepositorioContatoEmArquivo(contextoDados);
+                repositorioContato = new RepositorioContato(contextoDados);
             }   
 
 

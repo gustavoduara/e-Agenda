@@ -1,6 +1,7 @@
 using e_Agenda.Dominio.ModuloCategoria;
 using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Infraestrura.Arquivos.ModuloCategoria;
+using e_Agenda.WebApp.ActionFilters;
 using e_Agenda.WebApp.Extensions;
 using e_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace e_Agenda.WebApp.Controllers;
 
 [Route("categorias")]
+[ValidateAntiForgeryToken]
+[ValidarModelo]
 public class CategoriaController : Controller
 {
     private readonly ContextoDados contextoDados;

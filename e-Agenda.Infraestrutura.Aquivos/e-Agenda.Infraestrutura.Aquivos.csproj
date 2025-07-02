@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ModuloContato\RepositorioContatoEmArquivo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\e-Agenda.Dominio\e-Agenda.Dominio.csproj" />
   </ItemGroup>
 

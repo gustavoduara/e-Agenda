@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using e_Agenda.WebApp.Extensions;
 using e_Agenda.Infraestrura.Arquivos.Compartilhado;
 using e_Agenda.Dominio.ModuloContato;
-using e_Agenda.Infraestrura.Arquivos.ModuloContato;
 using e_Agenda.WebApp.Models;
+using eAgenda.Infraestrutura.ModuloContato;
 
 namespace e_Agenda.WebApp.Controllers
 {
@@ -16,7 +16,7 @@ namespace e_Agenda.WebApp.Controllers
         public ContatoController()
         {
             contextoDados = new ContextoDados(true);
-            repositorioContato = new RepositorioContatoEmArquivo(contextoDados);
+            repositorioContato = new RepositorioContato(contextoDados);
         }
         
         [HttpGet]
